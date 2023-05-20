@@ -1,0 +1,9 @@
+Manifest-Version: 1.0
+Built-By: User
+Build-Jdk: 11.0.9
+Implementation-Title: com.devpro.shop16 Maven Webapp
+Implementation-Version: 0.0.1-SNAPSHOT
+Implementation-Vendor-Id: com.devpro
+Implementation-URL: http://maven.apache.org
+Created-By: Maven Integration for Eclipse
+

@@ -1,0 +1,599 @@
+@import url(https://fonts.googleapis.com/css?family=Open+Sans);
+
+body{
+  margin: 0;
+  background: #f2f2f2;
+  font-family: 'Open Sans', sans-serif;
+}
+
+
+.free{
+  background-color: #65d1e6;
+  text-align: center;
+  padding: 5px 0;
+  color: white;
+  font-size: 12px;
+}
+
+.search { 
+  position: relative;
+  display: flex;
+  margin-left: 30px;
+  width: 40%;
+  overflow: hidden;
+  height: 40px;
+}
+
+.searchTerm {
+  width: 100%;
+  border: 3px solid #ececec;
+  border-right: none;
+  padding: 5px;
+  border-radius: 5px 0 0 5px;
+  outline: none;
+  color: #9DBFAF;
+  font-size: 15px;
+}
+
+.searchTerm:focus{
+  color: #282828;
+}
+
+.searchButton {
+  width: 40px;
+  border: 1px solid #65d1e6;
+  background: #65d1e6;
+  text-align: center;
+  color: #fff;
+  border-radius: 0 5px 5px 0;
+  cursor: pointer;
+  font-size: 20px;
+  
+}
+
+
+
+/*.main-header{
+  position: sticky;
+  top: 0;
+  display: block;
+}*/
+
+/*Resize the wrap to see the search bar change!*/
+.header{
+  max-width: 1600px;
+  max-height: 70px;
+  left: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  padding: 15px 85px;
+  background-color: white;
+}
+
+.header .title img{
+  width: 100%;
+}
+
+.header .title{
+  margin-left: 60px;
+}
+
+.form-login{
+  display: flex;
+  margin-left: 40px;
+  overflow: hidden;
+  height: 40px;
+}
+
+.form-login-content > div a{
+  text-decoration: none;
+  
+}
+
+.form-login >div{
+  margin-left: 13px;
+}
+
+.form-login .item-icon i{
+  font-size: 30px;
+  padding-top: 8px;
+  color: black;
+}
+
+.form-login-content .sign-in a{
+  color: #8e9291;
+  font-size: 15px;
+}
+
+.form-login-content .acount a{
+  color: #252a2b;
+  font-size: 16px;
+}
+
+.carts{
+  margin-left: 30px;
+  overflow: hidden;
+  height: 20px;
+}
+
+.carts ul{
+  margin: 0;
+  padding: 0;
+  display: flex;
+  list-style-type: none;
+}
+
+.fa, .fas {
+    font-family: "Font Awesome 5 Pro";
+}
+
+.carts ul li a{
+  display: block;
+  color: #252a2b;
+  font-size: 16px;
+  text-decoration: none;
+}
+
+.carts ul li a i{
+  font-size: 20px;
+}
+
+.carts ul li{
+  margin-left: 10px;
+}
+
+.nav{
+  background-color: white;
+  position: relative;
+}
+
+.nav ul{
+  margin: 0;
+  padding-top: 30px;
+  padding-left: 90px;
+  display: flex;
+  list-style-type: none;
+}
+
+.nav ul li a{
+  display: block;
+  color: #252a2b;
+  font-size: 16px;
+  text-decoration: none;
+  font-weight: bold;
+  border: 1px solid white;
+  padding-bottom: 10px;
+  position: relative;
+}
+
+.nav ul li a:hover{
+  color: #65d1e6;
+}
+/**/
+.nav ul li a::after{
+  content: "";
+  height: 1px;
+  width: 0px;
+  background: black;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  transition: all 0.5 ease-in-out;
+}
+
+.nav ul li a:hover::after{
+  width: 100%;
+}
+
+
+.nav ul li{
+  margin-left: 35px;
+}
+/*close header*/
+
+.nav-chinh li#all-product{
+  position: relative;
+}
+
+.nav-chinh ul.all-control{
+  
+  
+  /*width: 150px;*/
+  position: absolute;
+  left: -127px;
+  top: 6px;
+  display: none;
+}
+
+.nav .all-control li{
+  border: 1px solid #f5f5f5;
+  padding: 8px 41px 4px 10px;
+  width: 89px;
+  background-color: white;
+}
+
+.nav-chinh ul.all-control a{
+  font-size: 13px;
+}
+
+.nav-chinh ul.all-control li:hover a{
+  border-bottom: none;
+}
+
+.nav-chinh ul.all-control li a:hover::after{
+  width: 0%;
+}
+
+.nav-chinh li:hover ul.all-control{
+  display: block;
+}
+
+/*.nav .all-control:hover .nav-chinh{
+  display: block;
+}*/
+
+.content{
+  background-color: white;
+
+}
+
+
+ .products-name a{
+  text-align: center;
+  color: #252a2b;
+  font-size: 50px;
+  text-decoration: none;
+
+}
+
+.products{
+  position: relative;
+}
+
+.products-name {
+  text-align: center;
+  padding: 60px;
+}
+
+ .products-name a:hover{
+  color: #65d1e6;
+}
+
+.list-product{
+  display: flex;
+  margin: 0 55px;
+  
+}
+
+.list-product .item{
+  width: calc((100% )/5);
+  margin-left: 59px;
+  position: relative;
+  padding-bottom: 15px;
+}
+
+.list-product .item .item-images a img{
+  height: 250px;
+  padding-bottom: 20px;
+  object-fit: cover;
+  object-position: 50% 0%;
+}
+
+.list-product .item:hover img{
+  transform: scale(1.05);/*tang kich thuoc anh khi tro vao*/
+  transition: 1s;/*thoi gian chuyen dong*/
+}
+
+.list-product .item .item-sale{
+  position: absolute;
+  font-size: 12px;
+  color: red;
+  left: 10px;
+  top: 10px;
+  font-weight: bold;
+  margin: 0;
+  border: 1px solid #cccccc;
+  padding: 3 6px;
+  background-color: white;
+}
+
+.list-product .item .item-content a{
+ 
+  text-decoration: none;
+  color: #252a2b;
+  font-size: 16px;
+  font-weight: bold;
+  padding-bottom: -15px;
+  padding-top: 25px;
+}
+
+.list-product .item .item-content a:hover{
+  color: #65d1e6;
+}
+
+.item .item-content .price{
+  display: flex;
+}
+
+.item .item-content .price h4{
+ 
+  color: red;
+}
+
+.item .item-content .price h5{
+
+  margin-left: 10px;
+  color: gray;
+  text-decoration: line-through;
+}
+
+.logo-item{
+  display: flex;
+  margin: 0;
+}
+
+
+
+.logo-item .logo-item-list{
+  width: calc(100%/3);
+  position: relative;
+  margin: 0 5px;
+}
+
+.logo-item .logo-item-list:hover img{
+  transform: scale(1.05);
+  transition: 1s;
+}
+
+.logo-item .logo-item-list .logo-name{
+  position: absolute;
+  font-size: 22px;
+  color: white;
+  bottom: 86px;
+  left: 50px;
+  font-weight: 500;
+}
+
+.logo-item .logo-item-list .add{
+  position: absolute;
+  border: 1px solid #828282;
+  bottom: 67px;
+  left: 43px;
+  background-color: white;
+  font-size: 13px;
+  border-radius: 3px;
+  padding: 7px 20px;
+}
+
+.logo-item .logo-item-list .add a{
+  text-decoration: none;
+  color: #282828;
+  
+}
+
+.logo-item .logo-item-list .add-collection a{
+  text-decoration: none;
+  color: #282828;
+  
+}
+
+.logo-item .logo-item-list .add-collection{
+  position: absolute;
+  border: 1px solid #828282;
+  bottom: 167px;
+  left: 63px;
+  background-color: white;
+  font-size: 13px;
+  border-radius: 3px;
+  padding: 7px 20px;
+}
+
+.logo-item .logo-item-list .logo-name-collection{
+  position: absolute;
+  font-size: 22px;
+  color: white;
+  bottom: 186px;
+  left: 50px;
+  font-weight: 500;
+}
+
+.about{
+  position: relative;
+  display: flex;
+  background-color: #f5f5f5;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.about .about-us{
+  /*position: ;*/
+  justify-content: center;
+}
+
+.about .about-us img{
+  /*opacity: 0.8;*/
+}
+
+.about .about-us p{
+  margin-left: 40px;
+  margin-right: 40px;
+}
+
+.about .about-us .about-title{
+  position: absolute;
+  font-size: 50px;
+  color: white;
+  bottom: 240px;
+  left: 128px;
+}
+
+.about .about-us .about-button{
+  position: absolute;
+  border: 1px solid #828282;
+  padding: 14px 40px;
+  color: #282828;
+  background-color: white;
+  bottom: 215px;
+  left: 125px;
+  border-radius: 3px;
+}
+
+.about .about-us .about-button a{
+  text-decoration: none;
+  color: #282828;
+}
+
+.footer{
+  position: relative;
+  margin-top: 12px;
+  margin-bottom: 30px;
+}
+
+.footer .contact{
+  display: flex;
+  
+  background-color: #f3f3f3;
+}
+
+.footer .contact .register{
+  display: flex;
+  margin-left: 80px;
+
+}
+
+.footer .contact .register-title{
+  margin-left: 10px;
+  padding-top: 6px;
+}
+
+.footer .contact .register-icon{
+  font-size: 25px;
+
+}
+
+.footer .contact .search-email{
+  width: 50%;
+  top: -1px;
+}
+
+.save-email{
+  width: 16%;
+  border: 1px solid #65d1e6;
+  background: #65d1e6;
+  text-align: center;
+  color: #fff;
+  border-radius: 0 5px 5px 0;
+  cursor: pointer;
+  font-size: 17px;
+  position: relative;
+
+}
+
+.save-email a{
+  position: absolute;
+  text-decoration: none;
+  color: #fff;
+  left: 8px;
+  top: 3px;
+  padding: 5px 10px;
+}
+.footer .contact .call{
+  display: flex;
+  margin-left: 55px;
+}
+
+.footer .contact .call .call-icon{
+  font-size: 25px;
+}
+
+.footer .contact .call .call-title{
+  margin-left: 10px;
+  padding-top: 6px;
+}
+
+.call-phone{
+  color: darkred;
+}
+
+
+.footer .introduc{
+  display: flex;
+  margin-top: 25px;
+  padding-bottom: 35px;
+  border-bottom: 1px solid gray;
+  background-color: #ffffff;
+}
+
+.footer .introduc-title{
+  margin-top: 60px;
+  margin-bottom: 35px;
+}
+
+.footer .introduc .introduc-content{
+  margin-left: 105px;
+  margin-right: 60px;
+  width: 470px;
+}
+
+.footer .introduc .introduc-content .introduc-logo a img{
+  margin-top: 20px;
+}
+
+.footer .introduc .introduc-list ul{
+  list-style-type: none;
+  padding-left: 1px;
+  margin-right: 105px;
+
+}
+
+.footer .introduc .introduc-list ul li{
+  color: black;
+  font-size: 16px;
+  padding-bottom: 15px;
+}
+
+.footer .introduc .introduc-list ul li a{
+  text-decoration: none;
+  color: black;
+}
+
+.footer .introduc .introduc-list ul li a:hover{
+  color: #65d1e6;
+}
+
+.footer .introduc .introduc-link{
+
+}
+
+.footer .introduc .introduc-contact{
+
+}
+
+.footer .introduc .introduc-fanpage{
+
+}
+
+.copyright{
+  text-align: center;
+  font-size: 14px;
+  font-weight: 50;
+  margin-top: -16px;
+  margin-bottom: 16px;
+}
+
+.copyright i{
+  font-size: 10px;
+}
+
+.copyright a{
+  text-decoration: none;
+  color: black;
+}
+
+.copyright a:hover{
+  color: #65d1e6;
+}
+
+
+

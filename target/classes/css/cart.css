@@ -1,0 +1,198 @@
+.content {
+	margin: 0;
+	padding: 20px;
+}
+
+h3 {
+	text-align: center;
+}
+
+.content  .content-title-p1 {
+	text-align: center;
+}
+
+.navigation {
+	background-color: #f3f3f3;
+	font-size: 13px;
+	padding: 0px 120px;
+}
+
+.navigation ul {
+	list-style-type: none;
+	display: flex;
+	margin-left: -45px;
+}
+
+.navigation ul li a {
+	text-decoration: none;
+	color: black;
+}
+
+.navigation ul li {
+	margin-left: 10px;
+	color: gray;
+}
+
+.navigation ul li a:hover {
+	color: #65d1e6;
+}
+/* phần hàng */
+#card-icon {
+	font-size: 20px;
+	color: #cb5a5a;
+}
+
+.cong {
+	border: none;
+	background-color: white;
+	font-size: 20px;
+}
+
+.tru {
+	border: none;
+	background-color: white;
+	font-size: 25px;
+}
+
+.a-update {
+	
+	border: none;
+	background-color: #cb5a5a;
+	color: white;
+	font-size: 19px;
+	border-radius: 5px;
+    text-decoration: none;
+}
+
+
+
+.content-desc {
+	display: flex;
+}
+
+.content-desc-p1 {
+	display: flex;
+}
+
+.note #note {
+	background-color: #f3f3f3;
+	border: 1px solid white;
+	padding: 10px;
+}
+
+.note textarea:hover {
+	border: 1px solid white;
+}
+
+.sidebox {
+	padding-left: 30px;
+}
+
+.sidebox h5 {
+	padding-left: 35px;
+}
+
+.sidebox ul li {
+	list-style-type: none;
+	padding-bottom: 5px;
+	font-size: 15px;
+}
+
+.sidebox ul li i {
+	padding-right: 10px;
+}
+
+.content-desc-p2 {
+	border: 1px solid #e1e3e4;
+	padding: 10px;
+	margin-left: 15px;
+}
+
+.p2-title {
+	border-bottom: 1px solid #e1e3e4;
+}
+
+.p2-total {
+	border-bottom: 1px solid #e1e3e4;
+	font-size: 15px;
+}
+
+.p2-total .total-price {
+	font-size: 22px;
+	color: red;
+	float: right;
+}
+
+.p2-total p {
+	font-weight: bold;
+}
+
+.p2-text p {
+	font-size: 15px;
+}
+
+.p2-action .thanhtoan {
+	width: 100%;
+	background-color: #ff3300;
+	border: 1px solid #ff3300;
+	padding: 15px;
+	font-size: 15px;
+	color: white;
+}
+
+.p2-action p {
+	text-align: center;
+}
+
+.p2-action p a {
+	text-decoration: none;
+	color: #65d1e6;
+}
+
+.p2-action p a i {
+	padding-right: 7px;
+}
+/*add*/
+.form-row {
+	margin-top: 15px;
+	margin-bottom: 15px;
+}
+
+.form-row .form-group label {
+	font-size: 15px;
+}
+
+.form-row .form-group input {
+	margin-top: 5px;
+	margin-bottom: 5px;
+	padding: 5px;
+	width: 40%;
+	border: 1px solid #d6d6d6;
+	font-size: 15px;
+}
+
+.cart-table {
+	width: 80%;
+}
+
+.cart-table table {
+	width: 100%;
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+.border-0 {
+	text-align: center;
+}
+
+.cart-table tbody tr {
+	border-bottom: 1px solid black;
+}
+
+.text-dark {
+	text-decoration: none;
+	color: black;
+	font-size: 15px;
+}
+
+/*end add*/

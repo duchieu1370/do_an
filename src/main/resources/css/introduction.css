@@ -1,0 +1,190 @@
+@import url(https://fonts.googleapis.com/css?family=Open+Sans);
+
+/*.main-header{
+  position: sticky;
+  top: 0;
+  display: block;
+}*/
+
+/*Resize the wrap to see the search bar change!*/
+
+/*open css header*/
+
+.nav{
+  background-color: white;
+  position: relative;
+}
+
+.nav ul{
+  margin: 0;
+  padding-top: 30px;
+  padding-left: 90px;
+  display: flex;
+  list-style-type: none;
+}
+
+.nav ul li a{
+  display: block;
+  color: #252a2b;
+  font-size: 16px;
+  text-decoration: none;
+  font-weight: bold;
+  border: 1px solid white;
+  padding-bottom: 10px;
+}
+
+.nav ul li a:hover{
+  color: #65d1e6;
+  border-bottom: 1px solid #828282;
+}
+
+.nav-chinh li#all-product{
+  position: relative;
+}
+
+.nav-chinh ul.all-control{
+  position: absolute;
+  left: -127px;
+  top: 6px;
+  display: none;
+}
+
+.nav .all-control li{
+  border: 1px solid #f5f5f5;
+  padding: 8px 41px 4px 10px;
+  width: 89px;
+  background-color: white;
+}
+
+.nav-chinh ul.all-control a{
+  font-size: 13px;
+}
+
+.nav-chinh ul.all-control li:hover a{
+  border-bottom: none;
+}
+
+.nav-chinh ul.all-control li a:hover::after{
+  width: 0%;
+}
+
+.nav-chinh li:hover ul.all-control{
+  display: block;
+}
+
+.nav ul li{
+  margin-left: 35px;
+}
+
+/*close css header*/
+
+.content{
+  background-color: white;
+}
+
+/*open css footer*/
+/*close css footer*/
+
+.navigation{
+  background-color: #f3f3f3;
+  font-size: 13px;
+  padding: 0px 120px;
+}
+
+.navigation ul{
+  list-style-type: none;
+  display: flex;
+  margin-left: -45px;
+}
+
+.navigation ul li a{
+  text-decoration: none;
+  color: black;
+}
+
+.navigation ul li{
+  margin-left: 10px;
+  color: gray;
+}
+
+.navigation ul li a:hover{
+  color: #65d1e6;
+}
+
+/*open css content giới thiệu*/
+
+.content .content-list{
+  border: 1px solid #f3f3f3;
+  padding: 20px;
+  margin-left: 122px;
+  margin-right: 47px;
+  width: 430px;
+  padding-bottom: -50px;
+  margin-top: 35px;
+  margin-bottom: 250px;
+}
+
+.content .content-list .content-title{
+  text-align: center;
+  border-bottom: 1px solid #828282;
+}
+
+.content .content-list .list ul{
+  list-style-type: none;
+  padding-left: 1px;
+}
+
+.content .content-list .list ul li{
+  padding-bottom: 5px;
+}
+
+.content .content-list .list ul a{
+  text-decoration: none;
+  color: black;
+}
+
+  /*  thêm */
+.content{
+	display: flex;
+	padding: 20px 40px;	
+}
+
+.content-title h4{
+	border-bottom: 1px solid #000;
+	text-align: center;
+	padding-bottom: 10px;
+	font-size: 18px;
+	text-transform: uppercase;
+	margin-bottom: 10px;
+}
+
+.content-title {
+	border: 1px solid #e3e5ec;
+	padding: 20px 20px;
+	margin-bottom: 170px;
+	width: 25%;
+	margin-right: 25px;
+}
+
+.content-title .layer ul{
+  list-style-type: none;
+  padding-left: 1px;
+  margin-right: 105px;
+}
+
+.content-title .layer ul li{
+  color: black;
+  font-size: 16px;
+  padding-bottom: 15px;
+}
+
+.content-title .layer ul li a{
+  text-decoration: none;
+  color: black;
+}
+
+.content-title .layer ul li a:hover{
+  color: #65d1e6;
+}
+
+/*close css content giới thiệu*/
