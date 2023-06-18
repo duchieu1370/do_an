@@ -1,11 +1,15 @@
 package com.devpro.shop16.service;
 
-import java.util.List;
-
 import com.devpro.shop16.entities.Role;
-import com.devpro.shop16.entities.User;
+import com.devpro.shop16.repository.RoleRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+@Service
 public class RoleService extends BaseService<Role>{
+
+	@Autowired
+	RoleRepository repository;
 
 	@Override
 	protected Class<Role> clazz() {
@@ -13,15 +17,8 @@ public class RoleService extends BaseService<Role>{
 		return Role.class;
 	}
 	
-	public Role loadRoleByRolename(String roleName) {
-		String sql = "select * from tbl_roles u where u.username = '" + roleName + "'";
-		List<Role> role = this.executeByNativeSQL(sql, 0).getData();
-
-		if (role == null || role.size() <= 0)
-			return null;
-		return role.get(0);
+	public Role loadRoleByRoleName(String roleName) {
+		Role role = repository.findByName(roleName);
+		return role;
 	}
-	
-	
-
 }
