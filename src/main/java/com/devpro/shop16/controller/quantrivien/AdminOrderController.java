@@ -1,35 +1,37 @@
 package com.devpro.shop16.controller.quantrivien;
 
 
-import java.io.IOException;
-
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
+import com.devpro.shop16.controller.BaseController;
+import com.devpro.shop16.dto.OrderSearchModel;
+import com.devpro.shop16.repository.OrderProductRepository;
 import com.devpro.shop16.service.SaleorderProductsService;
-import org.springframework.beans.factory.annotation.Autowired;
-
+import com.devpro.shop16.service.SaleorderService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-
-import com.devpro.shop16.controller.BaseController;
-import com.devpro.shop16.dto.OrderSearchModel;
-import com.devpro.shop16.service.SaleorderService;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 
 @Controller
 public class AdminOrderController extends BaseController{
 	
-	@Autowired
-	private SaleorderService saleorderService;
+	private final SaleorderService saleorderService;
 
-	@Autowired
-	private SaleorderProductsService saleorderProductsService;
-	
+	private final SaleorderProductsService saleorderProductsService;
+
+	private final OrderProductRepository orderProductRepository;
+
+	public AdminOrderController(SaleorderService saleorderService, SaleorderProductsService saleorderProductsService, OrderProductRepository orderProductRepository) {
+		this.saleorderService = saleorderService;
+		this.saleorderProductsService = saleorderProductsService;
+		this.orderProductRepository = orderProductRepository;
+	}
+
 	@RequestMapping(value = { "/admin/order" }, method = RequestMethod.GET)
 	public String adminOrder(final Model model, final HttpServletRequest request,
 			final HttpServletResponse response) throws IOException {
@@ -59,4 +61,11 @@ public class AdminOrderController extends BaseController{
 		return "quantrivien/order-product";
 	}
 
+	@GetMapping("/delete-orderProduct/{id}")
+	public String deleteOrderProduct(@PathVariable("id") Integer id) {
+		orderProductRepository.deleteById(id);
+		return "redirect:/admin/order-product";
+	}
 }
+
+

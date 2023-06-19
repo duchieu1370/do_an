@@ -1,18 +1,9 @@
 package com.devpro.shop16.entities;
 
+import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.HashSet;
 import java.util.Set;
-
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.Lob;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
 
 
 
@@ -45,7 +36,19 @@ public class Product extends BaseEntity{
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "category_id") //định nghĩa khóa ngoại bằng joincolumn
 	private Categories categories;
-	
+
+
+//	@Column(name = "user_id")
+//	private String userId;
+//
+//	public String getUserId() {
+//		return userId;
+//	}
+//
+//	public void setUserId(String userId) {
+//		this.userId = userId;
+//	}
+
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "product", fetch = FetchType.EAGER)
 	private Set<ProductImage> productImage = new HashSet<ProductImage>();
 

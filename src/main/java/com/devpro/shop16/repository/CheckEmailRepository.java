@@ -1,6 +1,5 @@
 package com.devpro.shop16.repository;
 
-import com.devpro.shop16.entities.Contact;
 import com.devpro.shop16.entities.Subcribe;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -13,6 +12,4 @@ public interface CheckEmailRepository extends JpaRepository<Subcribe, Integer> {
     @Query("select u from Subcribe as u where u.email = :email ")
     List<Subcribe> findByEmail(@Param("email") String email);
 
-    @Query("select a from Contact as a where a.email = :email")
-    List<Contact> findByEmailContact(@Param("email") String email);
 }

@@ -1,21 +1,18 @@
 package com.devpro.shop16.service;
 
-import java.io.File;
-
-import java.io.IOException;
-
-import javax.transaction.Transactional;
-
+import com.devpro.shop16.dto.ProductSearchModel;
+import com.devpro.shop16.entities.Product;
+import com.devpro.shop16.entities.ProductImage;
+import com.github.slugify.Slugify;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.devpro.shop16.dto.ProductSearchModel;
-import com.devpro.shop16.entities.Product;
-import com.devpro.shop16.entities.ProductImage;
-import com.devpro.shop16.service.PagerData;
-import com.github.slugify.Slugify;
+import javax.transaction.Transactional;
+import java.io.File;
+import java.io.IOException;
+
 
 @Service
 public class ProductService extends BaseService<Product> {
@@ -61,12 +58,6 @@ public class ProductService extends BaseService<Product> {
 				sql += " and p.seo = '" + searchModel.seo + "'";
 			}
 
-			// tìm kiếm sản phẩm hot
-//			if (searchModel.isHot != null) {
-//				sql += " and p.is_hot = '" + searchModel.seo + "'";
-//			}
-
-			// tim kiem san pham theo seachText
 			if (!StringUtils.isEmpty(searchModel.keyword)) {
 				sql += " and (p.title like '%" + searchModel.keyword + "%'" + " or p.detail_description like '%"
 						+ searchModel.keyword + "%'" + " or p.short_description like '%" + searchModel.keyword + "%')";
@@ -81,7 +72,7 @@ public class ProductService extends BaseService<Product> {
 
 	/**
 	 * Dùng để thêm mới sản phẩm
-	 * 
+	 *
 	 * @param p
 	 * @param productAvatar
 	 * @param productPictures
@@ -120,16 +111,14 @@ public class ProductService extends BaseService<Product> {
 			}
 		}
 
-		// tạo seo
 		p.setSeo(new Slugify().slugify(p.getTitle()));
 
-		// lưu vào database
 		return super.saveOrUpdate(p);
 	}
 
 	/**
 	 * Cập nhật sản phẩm
-	 * 
+	 *
 	 * @param p
 	 * @param productAvatar
 	 * @param productPictures
@@ -183,14 +172,12 @@ public class ProductService extends BaseService<Product> {
 			}
 		}
 
-		// tạo seo
 		p.setSeo(new Slugify().slugify(p.getTitle()));
 
-		// lưu vào database
 		return super.saveOrUpdate(p);
 
 	}
-	
+
 	@Transactional
 	public void remove(Product p) {
 		delete(p);

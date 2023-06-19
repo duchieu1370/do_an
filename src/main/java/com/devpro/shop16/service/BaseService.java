@@ -1,19 +1,19 @@
 package com.devpro.shop16.service;
 
-import java.util.Date;
-import java.util.List;
+import com.devpro.shop16.entities.*;
+import com.devpro.shop16.repository.CheckEmailRepository;
+import com.devpro.shop16.repository.ContactRepository;
+import com.devpro.shop16.repository.OrderRepository;
+import com.devpro.shop16.repository.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.persistence.Table;
 import javax.transaction.Transactional;
-
-import com.devpro.shop16.entities.BaseEntity;
-import com.devpro.shop16.entities.Contact;
-import com.devpro.shop16.entities.Subcribe;
-import com.devpro.shop16.repository.CheckEmailRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import java.util.Date;
+import java.util.List;
 
 public abstract class BaseService<E extends BaseEntity>{
 
@@ -21,6 +21,15 @@ public abstract class BaseService<E extends BaseEntity>{
 
 	@Autowired
 	protected CheckEmailRepository checkEmailRepository;
+
+	@Autowired
+	protected ContactRepository contactRepository;
+
+	@Autowired
+	protected UserRepository userRepository;
+
+	@Autowired
+	protected OrderRepository orderRepository;
 
 	@PersistenceContext //Inject entityManager
 	protected EntityManager entityManager;
@@ -49,16 +58,29 @@ public abstract class BaseService<E extends BaseEntity>{
 	 * @param
 	 */
 	@Transactional
-	public List<Subcribe> check(Subcribe entity) {
+	public List<Subcribe> checkEmailSubcribe(Subcribe entity) {
 		return checkEmailRepository.findByEmail(entity.getEmail());
 	}
 
 	@Transactional
-	public List<Contact> check(Contact entityContact) {
-		return checkEmailRepository.findByEmailContact(entityContact.getEmail());
+	public List<Contact> checkEmailContact(Contact entityContact) {
+		return contactRepository.findByEmailContact(entityContact.getEmail());
 	}
 
+	@Transactional
+	public List<User> checkEmailRegister(User entityUser) {
+		return userRepository.findByEmailRegister(entityUser.getEmail());
+	}
 
+	@Transactional
+	public List<User> checkUserNameRegister(User entityUser){
+		return userRepository.findByUserNameRegister(entityUser.getUsername());
+	}
+
+	@Transactional
+	public List<Saleorder> checkEmailOrder(Saleorder entitySaleOrder) {
+		return orderRepository.findByEmailOrder(entitySaleOrder.getCustomer_email());
+	}
 
 	/**
 	 * xóa bản ghi trong cơ sở dữ liệu

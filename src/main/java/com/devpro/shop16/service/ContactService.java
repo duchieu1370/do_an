@@ -1,15 +1,9 @@
 package com.devpro.shop16.service;
 
-import javax.transaction.Transactional;
-
-
+import com.devpro.shop16.dto.ContactSearchModel;
+import com.devpro.shop16.entities.Contact;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
-
-import com.devpro.shop16.dto.ContactSearchModel;
-
-import com.devpro.shop16.entities.Contact;
-
 
 @Service
 public class ContactService extends BaseService<Contact> {
@@ -33,15 +27,7 @@ public class ContactService extends BaseService<Contact> {
 								+ searchModel.keyword + "%'" + " or p.massage like '%" + searchModel.keyword + "%')";
 					}
 				}
-
-		
 		return executeByNativeSQL(sql, searchModel == null ? 0 : searchModel.getPage());
 	}
-	
-	@Transactional
-	public void remove(Contact c) {
-		delete(c);
-	}
-	
 
 }

@@ -16,8 +16,8 @@ public class ProductImage extends BaseEntity{
 	@Column(name = "path", length = 200, nullable = false)
 	private String path;
 	
-	
-	
+
+
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "product_id") //định nghĩa khóa ngoại bằng joincolumn
 	private Product product;
@@ -46,7 +46,5 @@ public class ProductImage extends BaseEntity{
 		this.path = path;
 	}
 
-
-	
 
 }

@@ -10,8 +10,6 @@ public class ProductSearchModel extends BaseSearchModel {
 
 	public String seo;
 
-	
-
 	public String getKeyword() {
 		return keyword;
 	}
