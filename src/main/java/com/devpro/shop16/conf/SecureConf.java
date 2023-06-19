@@ -1,5 +1,6 @@
 package com.devpro.shop16.conf;
 
+import com.devpro.shop16.service.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -9,8 +10,6 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
-
-import com.devpro.shop16.service.UserDetailsServiceImpl;
 
 @Configuration
 @EnableWebSecurity
@@ -36,7 +35,7 @@ public class SecureConf extends WebSecurityConfigurerAdapter {
 		// /login là 1 action
 		.formLogin().loginPage("/login").loginProcessingUrl("/perform_login")
 		.successHandler(authenticationSuccessHandler())
-//		.defaultSuccessUrl("/home", true)
+//		.defaultSuccessUrl("/admin", true)
 		.failureUrl("/login?login_error=true")
 
 		.and()
@@ -54,6 +53,8 @@ public class SecureConf extends WebSecurityConfigurerAdapter {
 	
 	@Bean
 	public AuthenticationSuccessHandler authenticationSuccessHandler(){
-	    return new UrlAuthenticationSuccessHandler();
+		return new UrlAuthenticationSuccessHandler();
 	}
+
+
 }

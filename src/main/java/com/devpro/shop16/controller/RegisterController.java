@@ -55,22 +55,5 @@ public class RegisterController extends BaseController{
         return "register";
     }
 
-//    @PostMapping("/register")
-//    public ResponseEntity<Object> register(@Valid @RequestBody CreateUser createUser, HttpServletResponse response) {
-//        //Create user
-//        User user = iUserService.createUser(createUser);
-//
-//        //Gen token
-//        UserDetails principal = new CustomUserDetails(user);
-//        String token = jwtTokenUtil.generateToken(principal);
-//
-//        //Add token on cookie to login
-//        Cookie cookie = new Cookie("JWT_TOKEN", token);
-//        cookie.setMaxAge(MAX_AGE_COOKIE);
-//        cookie.setPath("/");
-//        response.addCookie(cookie);
-//
-//        return ResponseEntity.ok(UserMapper.toUserDTO(user));
-//    }
 
 }

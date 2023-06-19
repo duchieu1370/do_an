@@ -5,10 +5,6 @@ public class SubcribeSearchModel extends BaseSearchModel {
 	// tìm theo keyword
 	public String keyword;
 
-	// tìm theo category
-	
-
-	
 
 	public String getKeyword() {
 		return keyword;

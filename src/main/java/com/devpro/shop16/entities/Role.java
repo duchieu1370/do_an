@@ -1,18 +1,10 @@
 package com.devpro.shop16.entities;
 
+import org.springframework.security.core.GrantedAuthority;
+
+import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
-
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.Table;
-
-import org.springframework.security.core.GrantedAuthority;
 
 @Entity
 @Table(name = "tbl_roles") // để spring jpa biết mapping với table nào
@@ -24,19 +16,18 @@ public class Role extends BaseEntity implements GrantedAuthority{
 	private String description;
 
 	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@JoinTable(name = "tbl_users_roles", joinColumns = @JoinColumn(name = "role_id"), inverseJoinColumns = @JoinColumn(name = "user_id"))
+	@JoinTable(name = "tbl_users_roles", joinColumns = @JoinColumn(name = "role_id")
+			, inverseJoinColumns = @JoinColumn(name = "user_id"))
 	private Set<User> users = new HashSet<User>();
 
 	public void addUsers(User user) {
-		this.users.add(user);
 		user.getRoles().add(this);
-
+		users.add(user);
 	}
 
 	public void deleteUsers(User user) {
-		this.users.remove(user);
 		user.getRoles().remove(this);
-
+		users.remove(user);
 	}
 
 	public Set<User> getUsers() {

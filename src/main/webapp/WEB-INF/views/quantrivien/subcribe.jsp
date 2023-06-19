@@ -15,7 +15,7 @@
 <head>
 <meta charset="utf-8">
 <meta http-equiv="x-ua-compatible" content="ie=edge">
-<title>Contact</title>
+<title>Subscribe</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <jsp:include page="/WEB-INF/views/quantrivien/layouts/css.jsp"></jsp:include>
 
@@ -43,7 +43,7 @@
 			<!-- page title area start -->
 			<<jsp:include page="/WEB-INF/views/quantrivien/layouts/title.jsp"></jsp:include>
 			<!-- page title area end -->
-			<rm class="list" action="${base }/admin/subcribe" method="get">
+			<form class="list" action="${base }/admin/subscribe" method="get">
 				<div class="main-content-inner">
 					<!-- sales report area start -->
 
@@ -78,14 +78,17 @@
 								</tr>
 							</thead>
 							<tbody>
-								<c:forEach items="${subcribeWithPaging.data}" var="subcribe"
+								<c:forEach items="${subscribeWithPaging.data}" var="subcribe"
 									varStatus="loop">
 									<tr>
 										<th scope="row">${loop.index + 1}</th>
 										<td>${subcribe.email }</td>
 										<td>${subcribe.createdDate }</td>
 										<td>
-											<a class="text-danger" href="#" role="button"><i class="fa fa-trash"></i></a></td>
+											<a class="text-danger" href=" ${base}/delete-subscribe/${subcribe.id }" role="button">
+												DELETE
+											</a>
+										</td>
 									</tr>
 								</c:forEach>
 							</tbody>

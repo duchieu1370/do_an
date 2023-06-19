@@ -1,19 +1,12 @@
 package com.devpro.shop16.entities;
 
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
+import javax.persistence.*;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
-
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
 
 @Entity
 @Table(name = "tbl_users") // để spring jpa biết mapping với table nào
@@ -29,6 +22,17 @@ public class User extends BaseEntity implements UserDetails{
 	
 	@Column(name = "address", length = 1000, nullable = false)
 	private String address;
+
+	@Column(name = "phone", length = 10)
+	private String phone;
+
+	public String getPhone() {
+		return phone;
+	}
+
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
 
 	public String getAddress() {
 		return address;
@@ -91,6 +95,7 @@ public class User extends BaseEntity implements UserDetails{
 	public void setEmail(String email) {
 		this.email = email;
 	}
+
 
 	public Set<Role> getRoles() {
 		return roles;
