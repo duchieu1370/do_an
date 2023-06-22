@@ -8,7 +8,7 @@ body{
 
 
 .free{
-  background-color: #65d1e6;
+  background-color: #303030;
   text-align: center;
   padding: 5px 0;
   color: white;
@@ -18,7 +18,6 @@ body{
 .search { 
   position: relative;
   display: flex;
-  margin-left: 30px;
   width: 40%;
   overflow: hidden;
   height: 40px;
@@ -36,13 +35,13 @@ body{
 }
 
 .searchTerm:focus{
-  color: #282828;
+  color: #303030;
 }
 
 .searchButton {
   width: 40px;
-  border: 1px solid #65d1e6;
-  background: #65d1e6;
+  border: 1px solid #303030;
+  background: #303030;
   text-align: center;
   color: #fff;
   border-radius: 0 5px 5px 0;
@@ -76,14 +75,14 @@ body{
 }
 
 .header .title{
-  margin-left: 60px;
+
 }
 
 .form-login{
   display: flex;
   margin-left: 40px;
   overflow: hidden;
-  height: 40px;
+  height: 50px;
 }
 
 .form-login-content > div a{
@@ -92,7 +91,7 @@ body{
 }
 
 .form-login >div{
-  margin-left: 13px;
+
 }
 
 .form-login .item-icon i{
@@ -106,9 +105,21 @@ body{
   font-size: 15px;
 }
 
+.form-login > div{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
 .form-login-content .acount a{
   color: #252a2b;
   font-size: 16px;
+}
+
+.form-login-content input{
+  background: white;
+  border-radius: 10px;
 }
 
 .carts{
@@ -168,7 +179,7 @@ body{
 }
 
 .nav ul li a:hover{
-  color: #65d1e6;
+  color: #ff5f17;
 }
 /**/
 .nav ul li a::after{
@@ -257,7 +268,7 @@ body{
 }
 
  .products-name a:hover{
-  color: #65d1e6;
+  color: #ff5f17;
 }
 
 .list-product{
@@ -294,7 +305,7 @@ body{
   font-weight: bold;
   margin: 0;
   border: 1px solid #cccccc;
-  padding: 3 6px;
+  padding: 3px 6px;
   background-color: white;
 }
 
@@ -309,7 +320,7 @@ body{
 }
 
 .list-product .item .item-content a:hover{
-  color: #65d1e6;
+  color: #ff5f17;
 }
 
 .item .item-content .price{
@@ -318,7 +329,7 @@ body{
 
 .item .item-content .price h4{
  
-  color: red;
+  color: #ff5f17;
 }
 
 .item .item-content .price h5{
@@ -399,14 +410,16 @@ body{
 }
 
 .about{
+  margin: 15px 0;
   position: relative;
   display: flex;
-  background-color: #f5f5f5;
+  background-color: #f1f1f1;
   justify-content: space-between;
   align-items: center;
 }
 
 .about .about-us{
+  margin-bottom: 15px ;
   /*position: ;*/
   justify-content: center;
 }
@@ -479,8 +492,8 @@ body{
 
 .save-email{
   width: 16%;
-  border: 1px solid #65d1e6;
-  background: #65d1e6;
+  border: 1px solid #303030;
+  background: #303030;
   text-align: center;
   color: #fff;
   border-radius: 0 5px 5px 0;
@@ -513,7 +526,7 @@ body{
 }
 
 .call-phone{
-  color: darkred;
+  color: #ff5f17;
 }
 
 
@@ -521,8 +534,9 @@ body{
   display: flex;
   margin-top: 25px;
   padding-bottom: 35px;
-  border-bottom: 1px solid gray;
-  background-color: #ffffff;
+  border-bottom: 1px solid #4c4c4c;
+  background-color: #4c4c4c;
+  color: white;
 }
 
 .footer .introduc-title{
@@ -548,18 +562,18 @@ body{
 }
 
 .footer .introduc .introduc-list ul li{
-  color: black;
+  color: #cccccc;
   font-size: 16px;
   padding-bottom: 15px;
 }
 
 .footer .introduc .introduc-list ul li a{
   text-decoration: none;
-  color: black;
+  color: #cccccc;
 }
 
 .footer .introduc .introduc-list ul li a:hover{
-  color: #65d1e6;
+  color: #ff5f17;
 }
 
 .footer .introduc .introduc-link{
@@ -580,6 +594,7 @@ body{
   font-weight: 50;
   margin-top: -16px;
   margin-bottom: 16px;
+  background: #f1f1f1;
 }
 
 .copyright i{
@@ -592,7 +607,7 @@ body{
 }
 
 .copyright a:hover{
-  color: #65d1e6;
+  color: #ff5f17;
 }
 
 

@@ -175,7 +175,6 @@
 
 .metismenu li a:after {
     position: absolute;
-    content: '\f107';
     font-family: fontawesome;
     right: 15px;
     top: 12px;

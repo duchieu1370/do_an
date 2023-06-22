@@ -53,14 +53,14 @@ textarea {
 	font-size: 20px;
 	border-radius: 8px;
 	font-family: "Montserrat";
-	color: rgb(27, 166, 247);
+	color: #ff5f17;
 	text-align: center;
 	cursor: pointer;
 	transition: 0.3s ease background-color;
 }
 
 .sub:hover {
-	background-color: rgb(214, 226, 236);
+	background-color: #f1f1f1;
 }
 
 #status {

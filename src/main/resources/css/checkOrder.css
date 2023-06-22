@@ -1,5 +1,4 @@
-.contact-body {
-	height: 85vh;
+.check-body {
 	width: 100%;
 	background-color: #f6f4f4;
 	display: flex;
@@ -10,7 +9,6 @@
 
 .container-content {
 	width: 90%;
-	max-width: 500px;
 	margin: 0 auto;
 	padding: 20px;
 	box-shadow: 0px 0px 20px #00000010;
@@ -18,7 +16,16 @@
 	border-radius: 8px;
 }
 
+.container-content h3{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
 .form-group {
+	display: flex;
+	justify-content: center;
+	align-items: center;
 	width: 100%;
 	margin-top: 20px;
 	font-size: 15px;
@@ -26,7 +33,7 @@
 }
 
 .form-group input, .form-group textarea {
-	width: 100%;
+	width: 20%;
 	padding: 5px;
 	font-size: 15px;
 	border: 1px solid rgba(128, 128, 128, 0.199);
@@ -46,14 +53,15 @@ textarea {
 }
 
 .container-content .sub {
-	width: 100%;
+	width: 21%;
 	border: none;
 	outline: none;
-	padding: 20px;
+	padding: 10px;
 	font-size: 20px;
 	border-radius: 8px;
 	font-family: "Montserrat";
-	color: #ff5f17;
+	color: white;
+	background: #ff5f17;
 	text-align: center;
 	cursor: pointer;
 	transition: 0.3s ease background-color;
@@ -73,28 +81,21 @@ textarea {
 	background-color: #65d1e6;
 }
 
-/*@  keyframes status { 0% {*/
-/*	opacity: 1;*/
-/*	pointer-events: all;*/
-/*}*/
-/*90*/
-/*%*/
-/*{*/
-/*opacity*/
-/*:*/
-/*1;*/
-/*pointer-events*/
-/*:*/
-/*all;*/
-/*}*/
-/*100*/
-/*%*/
-/*{*/
-/*opacity*/
-/*:*/
-/*0;*/
-/*pointer-events*/
-/*:*/
-/*none;*/
-/*}*/
-/*}*/
+.showOrder{
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	margin: 15px 0px;
+}
+
+table th {
+	padding: 0px 15px;
+}
+
+table tr{
+	text-align: center;
+}
+
+table tr td{
+	padding: 10px;
+}

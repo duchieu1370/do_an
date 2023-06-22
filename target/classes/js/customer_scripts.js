@@ -19,9 +19,6 @@ function UpdateQuanlityCart(baseUrl, productId) {
 		success: function(jsonResult) {
 			// tăng số lượng sản phẩm trong giỏ hàng trong icon
 			$( "#quanlity_" +  productId).html(jsonResult.currentProductQuality);
-			
-			
-			
 		},
 		error: function(jqXhr, textStatus, errorMessage) {
 			
@@ -116,7 +113,7 @@ add = function(baseUrl) {
 			jQuery("#TB_AJAX").html(jsonResult.message);
 		},
 		error: function(jqXhr, textStatus, errorMessage) {
-
+			// jQuery("#TB_AJAX").html(jsonResult.error);
 		}
 	});
 }
@@ -145,7 +142,8 @@ home = function(baseUrl) {
 				$("#email").val("");
 				$("#TB_AJAX").html(jsonResult.message);
 			},
-			error: function (jsonResult) {
+			error: function (errMessage) {
+				$("#TB_AJAX").html(errMessage.err);
 			}
 		});
 	} else {
@@ -163,6 +161,9 @@ contact = function(baseUrl) {
 		name: $("#name").val(),
 		massage: $("#massage").val(),
 	};
+
+	var flag = true;
+	//email
 	if (validateEmail(data.email)) {
 		$.ajax({
 			url: baseUrl + "/ajax/contact", //->action
@@ -180,6 +181,33 @@ contact = function(baseUrl) {
 	} else {
 		$("#TB_AJAX_CONTACT").html("Địa chỉ email không đúng định dạng");
 	}
+
+	//username
+
+}
+
+//dành cho register
+register = function(baseUrl) {
+	let dataRegister = {
+		email: $("#email").val(),
+		username: $("#username").val(),
+	};
+	if (validateEmail(dataRegister.email)) {
+		$.ajax({
+			url: baseUrl + "/register",
+			type: "post",
+			contentType: "application/json",
+			data: JSON.stringify(dataRegister),
+			dataType: "json",
+			success: function (jsonResultCt) {
+				$("#email").val("");
+				$("#TB_REGISTER").html(jsonResultCt.messages);
+			},
+			error: function (jsonResultCt) {
+			}
+		});
+	} else {
+	}
 }
 
 function validateEmail(email) {
@@ -187,5 +215,37 @@ function validateEmail(email) {
 	return mailFormat.test(String(email).toLowerCase());
 
 }
+
+// function checkEmptyError(listInput){
+// 	let isEmptyError = false;
+// 	listInput.forEach(input => {
+// 		input.value = input.value.trim();
+//
+// 		if(!input.value){
+// 			isEmptyError = true;
+// 			showError(input, 'Khong duoc de trong')
+// 		}else{
+// 			showSuccess(input)
+// 		}
+// 	});
+//
+// 	return isEmptyError
+// }
+
+// function checkLengthError(input, min, max){
+// 	input.value = input.value.trim();
+//
+// 	if(input.value.length < min){
+// 		showError(input, 'Phai co it nhat 6 ky tu')
+// 		return true
+// 	}
+//
+// 	if(input.value.length > max){
+// 		showError(input, 'Khong duoc qua 20 ky tu')
+// 		return true
+// 	}
+//
+// 	return false
+// }
 
 

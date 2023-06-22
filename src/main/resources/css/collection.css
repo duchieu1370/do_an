@@ -1,5 +1,5 @@
 .navigation {
-	background-color: #f3f3f3;
+	background-color: #f1f1f1;
 	font-size: 13px;
 	padding: 0px 120px;
 }
@@ -21,7 +21,7 @@
 }
 
 .navigation ul li a:hover {
-	color: #65d1e6;
+	color: #ff5f17;
 }
 
 .content-bar {
