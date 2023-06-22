@@ -7,6 +7,5 @@
 	src="${base}/js/jquery.min.js"></script>
 <script type="text/javascript"
 	src="${base}/js/script.js"></script>
-<!--  <script type="text/javascript"
-	src="${base}/js/contact.js"></script> -->
+
 

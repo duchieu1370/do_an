@@ -59,10 +59,6 @@
 								value="Search" class="btn btn-flat btn-outline-secondary mb-3">Search</button>
 						</div>
 						<div>
-<%--							<button type="button"--%>
-<%--								class="btn btn-flat btn-outline-secondary mb-3">--%>
-<%--								<a href="${base }/admin/order-product"> Danh sách sản phẩm</a>--%>
-<%--							</button>--%>
 							</div>
 						
 					</div>
@@ -83,25 +79,28 @@
 									<th scope="col">Điện thoại</th>
 									<th scope="col">Email</th>
 									<th scope="col">Địa chỉ</th>
-									<th scope="col">Tình trạng</th>
+									<th scope="col">Trạng thái</th>
 									
 									<th scope="col">Lựa chọn</th>
 								</tr>
 							</thead>
 							<tbody>
-								<c:forEach items="${orderWithPaging.data}" var="order"
+								<c:forEach items="${orderWithPaging.data}" var="orders"
 									varStatus="loop">
 									<tr>
 										<th scope="row">${loop.index + 1}</th>
-										<td>${order.code }</td>
+										<td>${orders.code }</td>
 										
-										<td>${order.customer_name }</td>
-										<td>${order.customer_phone }</td>
-										<td>${order.customer_email }</td>
-										<td>${order.customer_address }</td>
-										<td></td>
+										<td>${orders.customer_name }</td>
+										<td>${orders.customer_phone }</td>
+										<td>${orders.customer_email }</td>
+										<td>${orders.customer_address }</td>
+										<td>Dang cho</td>
 										<td>
-											<a class="text-danger" href="#" role="button"><i class="fa fa-trash"></i></a></td>		
+											<a class="text-danger" href="#" role="button">
+												Xem
+											</a>
+										</td>
 									</tr>
 								</c:forEach>
 							</tbody>

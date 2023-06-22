@@ -38,13 +38,13 @@
 }
 
 .pagination a.active {
-	background-color: #65d1e6;
+	background-color: #ff5f17;
 	color: white;
-	border: 1px solid #65d1e6;
+	border: 1px solid #ff5f17;
 }
 
 .pagination a:hover:not(.active) {
-	background-color: #ddd;
+	background-color: #ff5f17;
 }
 </style>
 </head>
@@ -71,20 +71,6 @@
 		</div>
 		<!-- open content -->
 		<div class="content">
-
-
-			<!--  <div class="card-body" style="display: flex;">
-				<div style="display: flex; padding-right: 15px">
-					<input type="hidden" id="page" name="page" class="form-control">
-					<input type="text" id="keyword" name="keyword" class="form-control"
-						placeholder="Search" value="${searchModel.keyword }"
-						style="margin-right: 5px; height: 46px;">
-
-
-					<button type="submit" id="btnSearch" name="btnSearch"
-						value="Search" class="btn btn-flat btn-outline-secondary mb-3">Search</button>
-				</div>
-			</div>-->
 
 			<div class="content-bar">
 				<div class="title-bar">

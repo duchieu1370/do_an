@@ -87,7 +87,10 @@
 										<td>${contact.email }</td>
 										<td>${contact.massage }</td>
 										<td>
-											<a class="text-danger" href=" ${base}/delete/${contact.id }" role="button"><i class="fa fa-trash"></i></a></td>
+											<a class="text-danger" href=" ${base}/delete-contact/${contact.id }" role="button">
+												DELETE
+											</a>
+										</td>
 									</tr>
 								</c:forEach>
 							</tbody>

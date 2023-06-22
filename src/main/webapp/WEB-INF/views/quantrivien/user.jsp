@@ -54,13 +54,8 @@
 							<input type="text" id="keyword" name="keyword"
 								class="form-control" placeholder="Search"
 								value="${searchModel.keyword }"
-								style="margin-right: 5px; height: 46px;"> <select
-								class="form-control" name="roleId" id="roleId"
 								style="margin-right: 5px; height: 46px;">
-								<c:forEach items="${role}" var="role">
-									<option value="${role.id }">${role.name }</option>
-								</c:forEach>
-							</select>
+
 							<button type="submit" id="btnSearch" name="btnSearch"
 								value="Search" class="btn btn-flat btn-outline-secondary mb-3">Search</button>
 						</div>
@@ -102,9 +97,7 @@
 													</c:otherwise>
 												</c:choose>
 										</span></td>
-										
-										<td><a class="mr-sm-2 text-primary" href="#" role="button"><i class="fa fa-pencil"></i></a>
-											<a class="text-danger" href="#" role="button"><i class="fa fa-trash"></i></a></td>		
+
 									</tr>
 								</c:forEach>
 							</tbody>

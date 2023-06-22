@@ -102,54 +102,10 @@
 									<button class="btn btn-primary" type="submit">Submit
 										form</button>
 								</sf:form>
-
-								<!-- Dạng 3 :sử dụng ajax -->
-								<%-- <div class="alert alert-primary" role="alert" id="TB_AJAX">
-								</div>
-
-								<form class="needs-validation" novalidate=""
-									action="${base }/add-product" method="post">
-									<div class="form-row">
-										<div class="col-md-4 mb-3">
-											<label for="validationCustom01">Mã sản phẩm</label> <input
-												type="text" class="form-control" name="maSP"
-												id="validationCustom01" placeholder="..." required="" />
-											<div class="valid-feedback">Looks good!</div>
-										</div>
-										<div class="col-md-4 mb-3">
-											<label for="validationCustom02">Tên sản phẩm</label> <input
-												type="text" class="form-control" name="tenSP"
-												id="validationCustom02" placeholder="..." required="" />
-											<div class="valid-feedback">Looks good!</div>
-										</div>
-
-									</div>
-									<div class="form-row">
-										<div class="col-md-6 mb-3">
-											<label for="validationCustom03">Loại hàng</label> <input
-												type="text" class="form-control" name="loaiSP"
-												id="validationCustom03" placeholder="..." required="" />
-											<div class="invalid-feedback">Hãy nhập loại hàng!</div>
-										</div>
-										<div class="col-md-3 mb-3">
-											<label for="validationCustom04">Thành tiền</label> <input
-												type="text" class="form-control" name="total"
-												id="validationCustom04" placeholder="..." required="" />
-											<div class="invalid-feedback">Hãy nhập thành tiền sản
-												phẩm!</div>
-										</div>
-
-									</div>
-
-									<button class="btn btn-primary" type="button"
-										onclick="add('${base}');">Submit form</button>
-								</form>--%>
 							</div>
 						</div>
 					</div>
 				</div>
-
-
 
 			</div>
 			<!-- main content area end -->

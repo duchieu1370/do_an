@@ -46,6 +46,7 @@
         <jsp:include page="/WEB-INF/views/quantrivien/layouts/title.jsp"></jsp:include>
         <!-- page title area end -->
         <form class="list" action="${base }/admin/order-product" method="get">
+
             <div class="main-content-inner">
                 <!-- sales report area start -->
 
@@ -64,6 +65,7 @@
 
                 </div>
             </div>
+
             <!-- Dark table start -->
             <!-- Dark table end -->
 
@@ -71,52 +73,40 @@
                  style="margin: 0px 30px; padding-bottom: 15px">
                 <div class="table-responsive">
                     <table class="table text-center">
+
                         <thead class="text-uppercase bg-primary">
                         <tr class="text-white">
                             <th scope="col">ID</th>
                             <th scope="col">Mã đơn</th>
-
-                            <th scope="col">Mã sản phẩm</th>
-<%--                            <th scope="col">Gía sản phẩm</th>--%>
+                            <th scope="col">Email</th>
+                            <th scope="col">Tên sản phẩm</th>
+                            <th scope="col">Gía sản phẩm</th>
                             <th scope="col">Số lượng</th>
                             <th scope="col">Tổng tiền</th>
 
                             <th scope="col">Lựa chọn</th>
                         </tr>
                         </thead>
+
                         <tbody>
-                        <%--								<c:forEach items="${cart.cartItems}" var="cart"--%>
-                        <%--									varStatus="loop">--%>
-                        <%--									<tr>--%>
-                        <%--										<th scope="row">${loop.index + 1}</th>--%>
-                        <%--										<c:forEach items="${orderWithPaging.data}" var="order"--%>
-                        <%--									varStatus="loop">--%>
-                        <%--										<td>${order.code }</td>	--%>
-                        <%--										</c:forEach>									--%>
-                        <%--										<td>${cart.productName}</td>--%>
-                        <%--										<td>${cart.priceUnit }</td>--%>
-                        <%--										<td>${cart.quanlity }</td>--%>
-                        <%--										<td><fmt:setLocale--%>
-                        <%--											value="vi_VN" /> <fmt:formatNumber--%>
-                        <%--											value="${ci.priceUnit * ci.quanlity}" type="currency" /></td>																				--%>
-                        <%--										--%>
-                        <%--										<td>--%>
-                        <%--											<a class="text-danger" href="#" role="button"><i class="fa fa-trash"></i></a></td>		--%>
-                        <%--									</tr>--%>
-                        <%--								</c:forEach>--%>
+
                         <c:forEach items="${orderProductWithPaging.data}" var="orderProduct"
                                    varStatus="loop">
                             <tr>
                                 <th scope="row">${loop.index + 1}</th>
-                                <td>${orderProduct.saleorder.code }</td>
+                                <td>${orderProduct.saleOrder.code }</td>
+                                <td>${orderProduct.saleOrder.customer_email }</td>
                                 <td>${orderProduct.product.title }</td>
+                                <td>${orderProduct.product.price }</td>
                                 <td>${orderProduct.quality }</td>
-                                <td></td>
+                                <td>${orderProduct.quality * orderProduct.product.price} </td>
                                 <td>
-                                    <a class="text-danger" href="#" role="button"><i class="fa fa-trash"></i></a></td>
+                                    <a class="text-danger" href="${base}/delete-orderProduct/${orderProduct.id }"
+                                       role="button">DELETE</a></td>
                             </tr>
                         </c:forEach>
                         </tbody>
+
                     </table>
 
                 </div>

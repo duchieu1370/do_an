@@ -25,40 +25,6 @@
 
     <jsp:include page="/WEB-INF/views/khachhang/layouts/header.jsp"></jsp:include>
 
-    <%--		open content--%>
-    <%--    <section>--%>
-    <%--        <c:if test="${not empty TB }">--%>
-    <%--            <div class="alert alert-primary" id="status" role="alert">${TB }</div>--%>
-    <%--        </c:if>--%>
-    <%--        <div class="container-content">--%>
-    <%--            <sf:form modelAttribute="contact" action="${base }/contact"--%>
-    <%--                     method="POST" id="my-form" enctype="multipart/form-data">--%>
-
-    <%--                <div class="form-group" id="z-name">--%>
-    <%--                    <label for="name"> Name</label>--%>
-    <%--                    <sf:input path="name" type="text" id="name" name="name"--%>
-    <%--                              pattern="^[a-zA-Z\\s]+"--%>
-    <%--                              title="Name gồm chữ cái"/>--%>
-    <%--                </div>--%>
-
-    <%--                <div class="form-group" id="z-email">--%>
-    <%--                    <label for="email">Email</label>--%>
-    <%--                    <sf:input path="email" type="email" id="email" name="email"--%>
-    <%--                              pattern="^[A-Za-z0-9]{6,32}@([a-zA-Z0-9]{2,12})(.[a-zA-Z]{2,12})+$"--%>
-    <%--                    />--%>
-    <%--                    <span id="text" class="text"></span>--%>
-    <%--                </div>--%>
-
-    <%--                <div class="form-group" id="z-massage">--%>
-    <%--                    <label for="massage">Massage</label>--%>
-    <%--                    <sf:textarea path="massage" name="massage" id="massage" cols="30"--%>
-    <%--                                 rows="10" pattern="^[a-zA-Z\\s]+"/>--%>
-    <%--                </div>--%>
-
-    <%--                <button type="submit" class="sub">Submit</button>--%>
-    <%--            </sf:form>--%>
-    <%--        </div>--%>
-    <%--    </section>--%>
     <form action="${base }/contact" modelAttribute="contact" method="post">
         <div class="contact-body">
             <div class="container-content">
