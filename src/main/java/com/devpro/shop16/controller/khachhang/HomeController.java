@@ -1,5 +1,6 @@
 package com.devpro.shop16.controller.khachhang;
 
+import com.devpro.shop16.controller.BaseController;
 import com.devpro.shop16.dto.ProductSearchModel;
 import com.devpro.shop16.entities.Product;
 import com.devpro.shop16.entities.Subcribe;
@@ -23,7 +24,7 @@ import java.util.List;
 import java.util.Map;
 
 @Controller // tạo một BEAN
-public class HomeController {
+public class HomeController extends BaseController {
 	
 	@Autowired
 	private ProductService productService;
@@ -31,20 +32,12 @@ public class HomeController {
 	@Autowired
 	private SubcribeService subcribeService;
 	
-	// định nghĩa action phải sử dụng "@RequestMapping"
-	/*
-	 * model : sử dụng để đẩy dữ liệu từ controller -> view request :thông tin người
-	 * dùng đẩy lên controller response
-	 */
+
 	@RequestMapping(value = { "/", "/home" }, method = RequestMethod.GET)
 	public String home(final Model model, final HttpServletRequest request, final HttpServletResponse response)
 			throws IOException {
-//		String ho = request.getParameter("Ho");
-//		response.getWriter().print("Chao mung " + ho + " den voi chung toi");
-		// tạo 1 đối tượng
-		Subcribe subcribe = new Subcribe();
 
-		// đẩy đối tượng xuống tầng view từ Controller
+		Subcribe subcribe = new Subcribe();
 		model.addAttribute("subcribe", subcribe);
 		
 		ProductSearchModel searchModel = new ProductSearchModel();
@@ -72,7 +65,7 @@ public class HomeController {
 		Map<String, Object> jsonResult = new HashMap<String, Object>();
 		model.addAttribute("subcribe", "");
 
-		List<Subcribe> subcribes = subcribeService.check(subcribe);
+		List<Subcribe> subcribes = subcribeService.checkEmailSubcribe(subcribe);
 		if(subcribes.size() == 0) {
 			subcribeService.saveOrUpdate(subcribe);
 			jsonResult.put("code", 200);
