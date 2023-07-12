@@ -14,8 +14,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 
 @Controller
 public class AdminOrderController extends BaseController{
@@ -33,8 +31,7 @@ public class AdminOrderController extends BaseController{
 	}
 
 	@RequestMapping(value = { "/admin/order" }, method = RequestMethod.GET)
-	public String adminOrder(final Model model, final HttpServletRequest request,
-			final HttpServletResponse response) throws IOException {
+	public String adminOrder(final Model model, final HttpServletRequest request) {
 		
 		OrderSearchModel searchModel = new OrderSearchModel();
 		searchModel.keyword = request.getParameter("keyword");
@@ -48,8 +45,7 @@ public class AdminOrderController extends BaseController{
 	
 	
 	@RequestMapping(value = { "/admin/order-product" }, method = RequestMethod.GET)
-	public String adminOrderProduct(final Model model, final HttpServletRequest request,
-			final HttpServletResponse response) throws IOException {
+	public String adminOrderProduct(final Model model, final HttpServletRequest request){
 		
 		OrderSearchModel searchModel1 = new OrderSearchModel();
 		searchModel1.keyword = request.getParameter("keyword");

@@ -2,7 +2,6 @@ package com.devpro.shop16.controller.khachhang;
 
 import com.devpro.shop16.entities.Contact;
 import com.devpro.shop16.service.ContactService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,8 +10,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
@@ -21,13 +18,14 @@ import java.util.Map;
 @Controller
 public class ContactController{
 	
-	@Autowired
-	private ContactService contactService;
-	
+	private final ContactService contactService;
+
+	public ContactController(ContactService contactService) {
+		this.contactService = contactService;
+	}
 
 	@RequestMapping(value = { "/contact" }, method = RequestMethod.GET)
-	public String contact(final Model model, final HttpServletRequest request, final HttpServletResponse response)
-			throws IOException {
+	public String contact(final Model model) throws IOException {
 
 		Contact contact = new Contact();
 		model.addAttribute("contact", contact);
@@ -36,10 +34,8 @@ public class ContactController{
 
 
 	@RequestMapping(value = { "/contact" }, method = RequestMethod.POST)
-	public String post_spring_form(final Model model, 
-								   final HttpServletRequest request, 
-								   final HttpServletResponse response,
-								   final @ModelAttribute("contact") Contact contact) throws IllegalStateException, IOException{
+	public String post_spring_form(final Model model,
+								   final @ModelAttribute("contact") Contact contact) throws IllegalStateException{
 		model.addAttribute("TB", "Cảm ơn " + contact.getName() + ", chúng tôi sẽ liên hệ với bạn trong thời gian sớm nhất!");
 		// sau khi xử lí xong đưa contact về trạng thái mới
 		model.addAttribute("contact", "");
@@ -53,8 +49,7 @@ public class ContactController{
 	 * Sử dụng ajax
 	 */
 	@RequestMapping(value = { "/ajax/contact"}, method = RequestMethod.POST)
-	public ResponseEntity<Map<String, Object>> ajax_contact(final Model model, final HttpServletRequest request,
-			final HttpServletResponse response, final @RequestBody Contact contact) {
+	public ResponseEntity<Map<String, Object>> ajax_contact(final Model model, final @RequestBody Contact contact) {
 		Map<String, Object> jsonResultCt = new HashMap<String, Object>();
 		model.addAttribute("contact", "");
 

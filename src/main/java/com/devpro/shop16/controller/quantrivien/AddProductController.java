@@ -16,8 +16,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -38,8 +36,7 @@ public class AddProductController extends BaseController {
 
 
     @RequestMapping(value = {"/admin/product/list", "/admin/product"}, method = RequestMethod.GET)
-    public String adminProductList(final Model model, final HttpServletRequest request,
-                                   final HttpServletResponse response) throws IOException {
+    public String adminProductList(final Model model, final HttpServletRequest request){
 
         ProductSearchModel searchModel = new ProductSearchModel();
         searchModel.keyword = request.getParameter("keyword");
@@ -53,18 +50,15 @@ public class AddProductController extends BaseController {
     }
 
     @RequestMapping(value = {"/admin/product/add-product"}, method = RequestMethod.GET)
-    public String admin_add(final Model model, final HttpServletRequest request, final HttpServletResponse response)
-            throws IOException {
+    public String admin_add(final Model model) {
 
-        // thêm sản phẩm mới
         model.addAttribute("add", new Product());
 
-        // trả đường dẫn về view
         return "quantrivien/add-product";
     }
 
     @RequestMapping(value = {"/admin/product/add-product/{productId}"}, method = RequestMethod.GET)
-    public String adminProductEdit(final Model model, @PathVariable("productId") int productId) throws IOException {
+    public String adminProductEdit(final Model model, @PathVariable("productId") int productId) {
         Product product = productService.getById(productId);
         model.addAttribute("add", product);
 
@@ -80,10 +74,9 @@ public class AddProductController extends BaseController {
 
 
     @RequestMapping(value = {"/admin/product/add-product"}, method = RequestMethod.POST)
-    public String admin_addpost_spring_form(final Model model, final HttpServletRequest request,
-                                            final HttpServletResponse response, final @ModelAttribute("add") Product product,
+    public String admin_addpost_spring_form( final @ModelAttribute("add") Product product,
                                             @RequestParam("productAvatar") MultipartFile productAvatar, // hứng file đẩy lên
-                                            @RequestParam("productPictures") MultipartFile[] productPictures) throws Exception { // hứng file đẩy lên)
+                                            @RequestParam("productPictures") MultipartFile[] productPictures) throws Exception {
 //        User user = getUserLogined();
 //        product.setUserId(String.valueOf(user.getId()));
 
@@ -97,12 +90,7 @@ public class AddProductController extends BaseController {
         return "redirect:/admin/product";
     }
 
-    /**
-     * Sử dụng ajax
-     *
-     * @param
-     * @return
-     */
+
     @RequestMapping(value = {"/ajax/add-product"}, method = RequestMethod.POST)
     public ResponseEntity<Map<String, Object>> ajax_contact( final @RequestBody AddProduct add) {
         Map<String, Object> jsonResult = new HashMap<String, Object>();
@@ -112,8 +100,7 @@ public class AddProductController extends BaseController {
     }
 
     @RequestMapping(value = {"/admin/product/add-category"}, method = RequestMethod.GET)
-    public String admin_add_category(final Model model, final HttpServletRequest request, final HttpServletResponse response)
-            throws IOException {
+    public String admin_add_category(final Model model) {
 
         Categories addCate = new Categories();
         model.addAttribute("addCate", addCate);
@@ -123,9 +110,7 @@ public class AddProductController extends BaseController {
 
 
     @RequestMapping(value = {"/admin/product/add-category"}, method = RequestMethod.POST)
-    public String admin_add_spring_form(final Model model, final HttpServletRequest request,
-                                        final HttpServletResponse response, final @ModelAttribute("addCate") Categories categories
-    ) throws Exception {
+    public String admin_add_spring_form( final @ModelAttribute("addCate") Categories categories ) {
         categoriesService.saveOrUpdate(categories);
 
         return "redirect:/admin/product";

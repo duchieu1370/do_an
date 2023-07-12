@@ -9,17 +9,12 @@ import com.devpro.shop16.entities.SaleorderProducts;
 import com.devpro.shop16.entities.User;
 import com.devpro.shop16.service.ProductService;
 import com.devpro.shop16.service.SaleorderService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.List;
@@ -28,15 +23,17 @@ import java.util.Map;
 @Controller
 public class CartController extends BaseController {
 
-	@Autowired
-	private ProductService productService;
+	private final ProductService productService;
 	
-	@Autowired
-	private SaleorderService saleOrderService;
-	
+	private final SaleorderService saleOrderService;
+
+	public CartController(ProductService productService, SaleorderService saleOrderService) {
+		this.productService = productService;
+		this.saleOrderService = saleOrderService;
+	}
+
 	@RequestMapping(value = { "/cart/checkout" }, method = RequestMethod.POST)
-	public String cartFinish(final ModelMap model, final HttpServletRequest request, final HttpServletResponse response)
-			throws Exception {
+	public String cartFinish( final HttpServletRequest request) {
 
 		// Thông tin khách hàng
 		String customerFullName = request.getParameter("customer_name");
@@ -94,9 +91,8 @@ public class CartController extends BaseController {
 	}
 	
 	@RequestMapping(value = { "/cart/view" }, method = RequestMethod.GET)
-	public String cartView(final Model model, final HttpServletRequest request, final HttpServletResponse response)
-			throws IOException {
-		return "khachhang/cart"; // -> đường dẫn tới View.
+	public String cartView() {
+		return "khachhang/cart";
 	}
 	
 	@GetMapping("cart/remove/{productId}")
@@ -104,7 +100,6 @@ public class CartController extends BaseController {
 		HttpSession session = request.getSession();
 		Cart cart = (Cart) session.getAttribute("cart");
 		List<CartItem> cartItem = cart.getCartItems();
-		Product product = productService.getById(productId);
 		
 		var index = 0;
 		for (int i = 0; i < cartItem.size();i++) {
@@ -119,8 +114,7 @@ public class CartController extends BaseController {
 	}
 	
 	@RequestMapping(value = { "/ajax/updateQuanlityCart" }, method = RequestMethod.POST)
-	public ResponseEntity<Map<String, Object>> ajax_UpdateQuanlityCart(final Model model, final HttpServletRequest request,
-			final HttpServletResponse response, final @RequestBody CartItem cartItem) {
+	public ResponseEntity<Map<String, Object>> ajax_UpdateQuanlityCart( final HttpServletRequest request, final @RequestBody CartItem cartItem) {
 
 		// để lấy session sử dụng thông qua request
 		// session tương tự như kiểu Map và được lưu trên main memory.
@@ -163,16 +157,12 @@ public class CartController extends BaseController {
 	}
 	
 	@RequestMapping(value = { "/ajax/truQuanlityCart" }, method = RequestMethod.POST)
-	public ResponseEntity<Map<String, Object>> ajax_TruQuanlityCart(final Model model, final HttpServletRequest request,
-			final HttpServletResponse response, final @RequestBody CartItem cartItem) {
+	public ResponseEntity<Map<String, Object>> ajax_TruQuanlityCart( final HttpServletRequest request, final @RequestBody CartItem cartItem) {
 
-		// để lấy session sử dụng thông qua request
-		// session tương tự như kiểu Map và được lưu trên main memory.
 		HttpSession session = request.getSession();
 
-		// Lấy thông tin giỏ hàng.
 		Cart cart = null;
-		// kiểm tra xem session có tồn tại đối tượng nào tên là "cart"
+
 		if (session.getAttribute("cart") != null) {
 			cart = (Cart) session.getAttribute("cart");
 		} else {
@@ -180,10 +170,8 @@ public class CartController extends BaseController {
 			session.setAttribute("cart", cart);
 		}
 
-		// Lấy danh sách sản phẩm có trong giỏ hàng
 		List<CartItem> cartItems = cart.getCartItems();
 
-		// kiểm tra nếu có trong giỏ hàng thì tăng số lượng
 		int ciProductQuality = 0;
 		for (CartItem item : cartItems) {
 			if (item.getProductId() == cartItem.getProductId()) {
@@ -191,13 +179,9 @@ public class CartController extends BaseController {
 				item.setQuanlity(ciProductQuality);
 			}
 		}
-		
-		
 
-		// tính tổng tiền
 		this.calculateTotalPrice(request);
-		
-		// trả về kết quả
+
 		Map<String, Object> jsonResult = new HashMap<String, Object>();
 		jsonResult.put("code", 200);
 		jsonResult.put("status", "TC");
@@ -210,16 +194,13 @@ public class CartController extends BaseController {
 	
 		
 	@RequestMapping(value = { "/ajax/addToCart" }, method = RequestMethod.POST)
-	public ResponseEntity<Map<String, Object>> ajax_AddToCart(final Model model, final HttpServletRequest request,
-			final HttpServletResponse response, final @RequestBody CartItem cartItem) {
+	public ResponseEntity<Map<String, Object>> ajax_AddToCart( final HttpServletRequest request, final @RequestBody CartItem cartItem) {
 
-		// để lấy session sử dụng thông qua request
-		// session tương tự như kiểu Map và được lưu trên main memory.
 		HttpSession session = request.getSession();
 
-		// Lấy thông tin giỏ hàng.
+
 		Cart cart = null;
-		// kiểm tra xem session có tồn tại đối tượng nào tên là "cart"
+
 		if (session.getAttribute("cart") != null) {
 			cart = (Cart) session.getAttribute("cart");
 		} else {
@@ -227,10 +208,8 @@ public class CartController extends BaseController {
 			session.setAttribute("cart", cart);
 		}
 
-		// Lấy danh sách sản phẩm có trong giỏ hàng
 		List<CartItem> cartItems = cart.getCartItems();
 
-		// kiểm tra nếu có trong giỏ hàng thì tăng số lượng
 		boolean isExists = false;
 		for (CartItem item : cartItems) {
 			if (item.getProductId() == cartItem.getProductId()) {
@@ -239,7 +218,6 @@ public class CartController extends BaseController {
 			}
 		}
 
-		// nếu sản phẩm chưa có trong giỏ hàng
 		if (!isExists) {
 			Product productInDb = productService.getById(cartItem.getProductId());
 
@@ -249,10 +227,8 @@ public class CartController extends BaseController {
 			cart.getCartItems().add(cartItem);
 		}
 
-		// tính tổng tiền
 		this.calculateTotalPrice(request);
-		
-		// trả về kết quả
+
 		Map<String, Object> jsonResult = new HashMap<String, Object>();
 		jsonResult.put("code", 200);
 		jsonResult.put("status", "TC");
@@ -283,11 +259,8 @@ public class CartController extends BaseController {
 	//
 	private void calculateTotalPrice(final HttpServletRequest request) {
 
-		// để lấy session sử dụng thông qua request
-		// session tương tự như kiểu Map và được lưu trên main memory.
 		HttpSession session = request.getSession();
 
-		// Lấy thông tin giỏ hàng.
 		Cart cart = null;
 		if (session.getAttribute("cart") != null) {
 			cart = (Cart) session.getAttribute("cart");
@@ -307,4 +280,3 @@ public class CartController extends BaseController {
 		cart.setTotalPrice(total);
 	}
 }
-//

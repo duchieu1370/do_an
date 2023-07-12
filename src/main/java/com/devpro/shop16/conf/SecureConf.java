@@ -20,19 +20,19 @@ public class SecureConf extends WebSecurityConfigurerAdapter {
 	
 	@Override
 	protected void configure(final HttpSecurity http) throws Exception {
-		http.csrf().disable().authorizeRequests() // bắt đầu cấu hình: tất cả các requests từ 
-		// trình duyệt đều được bắt trong hàm này
+		http.csrf().disable().authorizeRequests()
+				// bat dau cau hinh: tat ca cac requests tu trinh duyet deu duoc bat trong ham nay
 
-		//cho phép các request static resources không bị ràng buộc(permitAll)
+		//cho phep cac request static resources khong bi rang buoc(permitAll)
 		.antMatchers("/css/**", "/js/**", "/upload/**", "/login", "/logout").permitAll()
 
-		//các request kiểu: "/admin/" là phải đăng nhập (authenticated)
+		//cac request kieu: "/admin/" la phai dang nhap (authenticated)
 		.antMatchers("/admin/**").hasAuthority("ADMIN")
 
 		.and()
 		
-		//cấu hình trang đăng nhập
-		// /login là 1 action
+		//cau hinh trang dang nhap
+		//login la 1 action
 		.formLogin().loginPage("/login").loginProcessingUrl("/perform_login")
 		.successHandler(authenticationSuccessHandler())
 //		.defaultSuccessUrl("/admin", true)
@@ -40,7 +40,7 @@ public class SecureConf extends WebSecurityConfigurerAdapter {
 
 		.and()
 
-		//cấu hình cho phần logout
+		//cau hinh cho phan logout
 		.logout().logoutUrl("/logout").logoutSuccessUrl("/home").invalidateHttpSession(true)
 		.deleteCookies("JSESSIONID");
 //		.and().rememberMe().key("uniqueAndSecret").tokenValiditySeconds(86400)

@@ -7,7 +7,6 @@ import com.devpro.shop16.entities.Subcribe;
 import com.devpro.shop16.service.PagerData;
 import com.devpro.shop16.service.ProductService;
 import com.devpro.shop16.service.SubcribeService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
@@ -26,15 +24,18 @@ import java.util.Map;
 @Controller // tạo một BEAN
 public class HomeController extends BaseController {
 	
-	@Autowired
-	private ProductService productService;
+	private final ProductService productService;
 	
-	@Autowired
-	private SubcribeService subcribeService;
-	
+	private final SubcribeService subcribeService;
+
+	public HomeController(ProductService productService, SubcribeService subcribeService) {
+		this.productService = productService;
+		this.subcribeService = subcribeService;
+	}
+
 
 	@RequestMapping(value = { "/", "/home" }, method = RequestMethod.GET)
-	public String home(final Model model, final HttpServletRequest request, final HttpServletResponse response)
+	public String home(final Model model, final HttpServletRequest request)
 			throws IOException {
 
 		Subcribe subcribe = new Subcribe();
@@ -47,20 +48,9 @@ public class HomeController extends BaseController {
 		model.addAttribute("searchModel", searchModel);
 		return "khachhang/index";
 	}
-	
-	/**
-	 * Sử dụng ajax
-	 * 
-	 * @param model
-	 * @param request
-	 * @param response
-	 * @param
-	 * @return
-	 */
+
 	@RequestMapping(value = { "/ajax/home", "/"}, method = RequestMethod.POST)
 	public ResponseEntity<Map<String, Object>> ajax_subcribe(final Model model,
-			final HttpServletRequest request,
-			final HttpServletResponse response, 
 			final @RequestBody Subcribe subcribe) {
 		Map<String, Object> jsonResult = new HashMap<String, Object>();
 		model.addAttribute("subcribe", "");
@@ -78,9 +68,8 @@ public class HomeController extends BaseController {
 	}
 	
 	@RequestMapping(value = { "/product/details/{productSeo}"}, method = RequestMethod.GET)
-	public String productDetails(final Model model, final HttpServletRequest request, final HttpServletResponse response,
-			@PathVariable("productSeo") String productSeo)
-			throws IOException {
+	public String productDetails(final Model model,
+			@PathVariable("productSeo") String productSeo) {
 		
 		ProductSearchModel searchModel = new ProductSearchModel();
 		searchModel.seo = productSeo;
