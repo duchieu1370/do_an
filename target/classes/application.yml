@@ -1,0 +1,24 @@
+# Spring
+spring:
+  application:
+    name: msic
+  main:
+    allow-bean-definition-overriding: true
+  jackson:
+    time-zone: Asia/Ho_Chi_Minh
+    date-format: dd/MM/yyyy HH:mm:ss
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: update
+      show_sql: true
+      format_sql: true
+  datasource:
+    driver-class-name: oracle.jdbc.driver.OracleDriver
+    url: jdbc:oracle:thin:@//localhost:1522/XEPDB1
+    username: MSIC
+    password: MSIC
+
+idp:
+  private-key: privateKey.rsa
+  public-key: publicKey.rsa
