@@ -2,49 +2,23 @@ package com.shopHMsic.entities;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
-@Table(name="tbl_products_images") //để spring jpa biết mapping với table nào
-public class ProductImage extends BaseEntity{
-	@Column(name = "title", length = 500, nullable = false)
-	private String title;
-	
-	@Column(name = "path", length = 200, nullable = false)
-	private String path;
-	
+@Getter
+@Setter
+@Table(name = "tbl_products_images")
+public class ProductImage extends BaseEntity {
+    @Column(name = "title", length = 500, nullable = false)
+    private String title;
 
+    @Column(name = "path", length = 200, nullable = false)
+    private String path;
 
-	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "product_id") //định nghĩa khóa ngoại bằng joincolumn
-	private Product product;
-
-	public Product getProduct() {
-		return product;
-	}
-
-	public void setProduct(Product product) {
-		this.product = product;
-	}
-
-	public String getTitle() {
-		return title;
-	}
-
-	public void setTitle(String title) {
-		this.title = title;
-	}
-
-	public String getPath() {
-		return path;
-	}
-
-	public void setPath(String path) {
-		this.path = path;
-	}
+    @Column(name = "product_id")
+    private Integer productId;
 
 
 }

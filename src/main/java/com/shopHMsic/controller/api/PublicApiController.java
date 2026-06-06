@@ -1,10 +1,14 @@
 package com.shopHMsic.controller.api;
 
+import com.shopHMsic.dto.BaseResponse;
 import com.shopHMsic.dto.GetResponseDTO;
 import com.shopHMsic.dto.OrderSearchModel;
 import com.shopHMsic.dto.ProductSearchModel;
 import com.shopHMsic.entities.*;
 import com.shopHMsic.service.*;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -36,28 +40,33 @@ public class PublicApiController {
 
     @GetMapping("/categories")
     public ResponseEntity<List<Categories>> getCategories() {
-        return ResponseEntity.ok(categoriesService.findAll());
+        return ResponseEntity.ok(categoriesService.getAllCategories());
     }
 
-    @GetMapping("/products")
-    public ResponseEntity<PagerData<Product>> getProducts(
-            @RequestParam(value = "keyword", required = false) String keyword,
-            @RequestParam(value = "categoryId", required = false) Integer categoryId,
-            @RequestParam(value = "page", defaultValue = "1") int page) {
-        ProductSearchModel searchModel = new ProductSearchModel();
-        searchModel.keyword = keyword;
-        searchModel.categoryId = categoryId;
-        searchModel.setPage(page);
-        return ResponseEntity.ok(productService.search(searchModel));
+    @PostMapping("/products")
+    public ResponseEntity<?> getProducts(
+            @RequestBody ProductSearchModel searchModel) {
+        if (searchModel.getSize() == null) {
+            searchModel.setSize(20);
+        }
+        if (searchModel.getPage() == null) {
+            searchModel.setPage(1);
+        }
+        Pageable pageable = PageRequest.of(searchModel.getPage() - 1, searchModel.getSize());
+        Page<Product> responses = productService.getListProduct(searchModel, pageable);
+        return ResponseEntity.ok()
+                .header("X-Total-Count", String.valueOf(responses.getTotalElements()))
+                .body(BaseResponse.<List<?>>builder()
+                        .data(responses.getContent())
+                        .total(responses.getTotalElements())
+                        .build());
     }
 
     @GetMapping("/products/{seo}")
     public ResponseEntity<Product> getProductDetails(@PathVariable("seo") String seo) {
-        ProductSearchModel searchModel = new ProductSearchModel();
-        searchModel.seo = seo;
-        PagerData<Product> products = productService.search(searchModel);
-        if (products != null && !products.getData().isEmpty()) {
-            return ResponseEntity.ok(products.getData().get(0));
+        Product product = productService.getBySeo(seo);
+        if (product != null) {
+            return ResponseEntity.ok(product);
         }
         return ResponseEntity.notFound().build();
     }
@@ -97,13 +106,22 @@ public class PublicApiController {
         return ResponseEntity.ok().body(responseDTO);
     }
 
-    @GetMapping("/orders")
-    public ResponseEntity<PagerData<Saleorder>> getOrders(
-            @RequestParam(value = "keyword") String keyword,
-            @RequestParam(value = "page", defaultValue = "1") int page) {
-        OrderSearchModel searchModel = new OrderSearchModel();
-        searchModel.keyword = keyword;
-        searchModel.setPage(page);
-        return ResponseEntity.ok(saleorderService.search(searchModel));
+    @PostMapping("/orders")
+    public ResponseEntity<?> getOrders(
+            @RequestBody OrderSearchModel searchModel) {
+        if (searchModel.getSize() == null) {
+            searchModel.setSize(20);
+        }
+        if (searchModel.getPage() == null) {
+            searchModel.setPage(1);
+        }
+        Pageable pageable = PageRequest.of(searchModel.getPage() - 1, searchModel.getSize());
+        Page<Saleorder> responses = saleorderService.getListOrder(searchModel, pageable);
+        return ResponseEntity.ok()
+                .header("X-Total-Count", String.valueOf(responses.getTotalElements()))
+                .body(BaseResponse.<List<?>>builder()
+                        .data(responses.getContent())
+                        .total(responses.getTotalElements())
+                        .build());
     }
 }

@@ -1,20 +1,22 @@
 package com.shopHMsic.service;
 
-import org.springframework.stereotype.Service;
-
-
+import com.shopHMsic.dto.CategoriesDto;
+import com.shopHMsic.dto.CategorySearchModel;
 import com.shopHMsic.entities.Categories;
+import com.shopHMsic.exception.EntityValidationException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
+public interface CategoriesService {
+    void createCategories(CategoriesDto dto) throws EntityValidationException;
 
-@Service
-public class CategoriesService extends BaseService<Categories>{
+    void updateCategory(int id, CategoriesDto dto) throws EntityValidationException;
 
-	@Override
-	protected Class<Categories> clazz() {
-		// TODO Auto-generated method stub
-		return Categories.class;
-	}
-	
+    void deleteCategory(int id) throws EntityValidationException;
 
+    Page<Categories> getListCategory(CategorySearchModel dto, Pageable pageable);
 
+    java.util.List<Categories> getAllCategories();
+
+    void updateCategoryStatus(int id, boolean status) throws EntityValidationException;
 }

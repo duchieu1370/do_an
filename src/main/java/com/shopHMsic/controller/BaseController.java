@@ -37,7 +37,7 @@ public abstract class BaseController {
 
     @ModelAttribute("categories")
     public List<Categories> getAllCategories() {
-        return categoriesService.findAll();
+        return categoriesService.getAllCategories();
     }
 
     @ModelAttribute("menus")

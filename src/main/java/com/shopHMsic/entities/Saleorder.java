@@ -37,6 +37,12 @@ public class Saleorder extends BaseEntity {
 	@Column(name = "total", precision = 13, scale = 2, nullable = true)
 	private BigDecimal total;
 
+	@Column(name = "order_status", nullable = true)
+	private Integer orderStatus = 1;
+
+	@Column(name = "reason", length = 1000, nullable = true)
+	private String reason;
+
 	@Column(name = "seo", length = 1000, nullable = true)
 	private String seo;
 
@@ -127,6 +133,22 @@ public class Saleorder extends BaseEntity {
 
 	public void setSeo(String seo) {
 		this.seo = seo;
+	}
+
+	public Integer getOrderStatus() {
+		return orderStatus;
+	}
+
+	public void setOrderStatus(Integer orderStatus) {
+		this.orderStatus = orderStatus;
+	}
+
+	public String getReason() {
+		return reason;
+	}
+
+	public void setReason(String reason) {
+		this.reason = reason;
 	}
 
 }

@@ -10,4 +10,6 @@ import java.util.List;
 public interface OrderProductRepository extends JpaRepository<SaleorderProducts, Integer> {
     @Query("select v from SaleorderProducts as v where v.saleOrder = :saleOrder")
     List<SaleorderProducts> findBySaleOrder(@Param("saleOrder") Integer saleOrder);
+
+    List<SaleorderProducts> findByProductId(Integer productId);
 }

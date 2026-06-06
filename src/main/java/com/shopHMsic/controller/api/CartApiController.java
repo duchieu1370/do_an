@@ -8,6 +8,7 @@ import com.shopHMsic.entities.SaleorderProducts;
 import com.shopHMsic.entities.User;
 import com.shopHMsic.service.ProductService;
 import com.shopHMsic.service.SaleorderService;
+import com.shopHMsic.service.EmailService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -25,10 +26,12 @@ public class CartApiController {
 
     private final ProductService productService;
     private final SaleorderService saleOrderService;
+    private final EmailService emailService;
 
-    public CartApiController(ProductService productService, SaleorderService saleOrderService) {
+    public CartApiController(ProductService productService, SaleorderService saleOrderService, EmailService emailService) {
         this.productService = productService;
         this.saleOrderService = saleOrderService;
+        this.emailService = emailService;
     }
 
     private Cart getOrCreateCart(HttpSession session) {
@@ -70,7 +73,7 @@ public class CartApiController {
 
         boolean isExists = false;
         for (CartItem item : cartItems) {
-            if (item.getProductId() == cartItem.getProductId()) {
+            if (item.getProductId() == cartItem.getProductId() && java.util.Objects.equals(item.getColor(), cartItem.getColor())) {
                 isExists = true;
                 item.setQuanlity(item.getQuanlity() + cartItem.getQuanlity());
             }
@@ -100,6 +103,7 @@ public class CartApiController {
     public ResponseEntity<Map<String, Object>> updateQuantity(HttpSession session, @RequestBody Map<String, Object> payload) {
         int productId = ((Number) payload.get("productId")).intValue();
         String action = (String) payload.get("action"); // "increase" or "decrease"
+        String color = (String) payload.get("color");
 
         Cart cart = getOrCreateCart(session);
         List<CartItem> cartItems = cart.getCartItems();
@@ -108,7 +112,7 @@ public class CartApiController {
         CartItem toRemove = null;
 
         for (CartItem item : cartItems) {
-            if (item.getProductId() == productId) {
+            if (item.getProductId() == productId && java.util.Objects.equals(item.getColor(), color)) {
                 if ("increase".equalsIgnoreCase(action)) {
                     currentProductQuality = item.getQuanlity() + 1;
                     item.setQuanlity(currentProductQuality);
@@ -142,13 +146,16 @@ public class CartApiController {
     }
 
     @DeleteMapping("/remove/{productId}")
-    public ResponseEntity<Map<String, Object>> removeProduct(HttpSession session, @PathVariable("productId") int productId) {
+    public ResponseEntity<Map<String, Object>> removeProduct(
+            HttpSession session, 
+            @PathVariable("productId") int productId,
+            @RequestParam(value = "color", required = false) String color) {
         Cart cart = getOrCreateCart(session);
         List<CartItem> cartItems = cart.getCartItems();
 
         CartItem toRemove = null;
         for (CartItem item : cartItems) {
-            if (item.getProductId() == productId) {
+            if (item.getProductId() == productId && java.util.Objects.equals(item.getColor(), color)) {
                 toRemove = item;
                 break;
             }
@@ -185,22 +192,22 @@ public class CartApiController {
         // Tạo hóa đơn
         Saleorder saleOrder = new Saleorder();
         
-        // Kiểm tra xem khách hàng đã đăng nhập chưa
+        // Kiểm tra xem khách hàng đã đăng nhập chưa để liên kết hóa đơn với tài khoản
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         if (principal instanceof UserDetails) {
             User userLogined = (User) principal;
             saleOrder.setUser(userLogined);
-            saleOrder.setCustomer_name(userLogined.getUsername());
-            saleOrder.setCustomer_email(userLogined.getEmail());
-            saleOrder.setCustomer_address(userLogined.getAddress());
-            saleOrder.setCustomer_phone(userLogined.getPhone());
-        } else {
-            saleOrder.setCustomer_name(checkoutData.get("customer_name"));
-            saleOrder.setCustomer_email(checkoutData.get("customer_email"));
-            saleOrder.setCustomer_address(checkoutData.get("customer_address"));
-            saleOrder.setCustomer_phone(checkoutData.get("customer_phone"));
         }
 
+        // Luôn sử dụng thông tin khách hàng nhập trên form
+        saleOrder.setCustomer_name(checkoutData.get("customer_name"));
+        saleOrder.setCustomer_email(checkoutData.get("customer_email"));
+        saleOrder.setCustomer_address(checkoutData.get("customer_address"));
+        saleOrder.setCustomer_phone(checkoutData.get("customer_phone"));
+        
+        // Thiết lập tổng tiền hóa đơn
+        saleOrder.setTotal(cart.getTotalPrice());
+        saleOrder.setOrderStatus(1); // Chờ xác nhận
         saleOrder.setCode(String.valueOf(System.currentTimeMillis()));
 
         // Kết nối sản phẩm
@@ -208,11 +215,19 @@ public class CartApiController {
             SaleorderProducts saleOrderProducts = new SaleorderProducts();
             saleOrderProducts.setProduct(productService.getById(cartItem.getProductId()));
             saleOrderProducts.setQuality(cartItem.getQuanlity());
+            saleOrderProducts.setColor(cartItem.getColor());
             saleOrder.addSaleOrderProducts(saleOrderProducts);
         }
 
         // Lưu vào DB
         saleOrderService.saveOrUpdate(saleOrder);
+
+        // Gửi email xác nhận đơn hàng bất đồng bộ
+        try {
+            emailService.sendOrderConfirmation(saleOrder);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         // Xóa giỏ hàng
         session.setAttribute("cart", null);

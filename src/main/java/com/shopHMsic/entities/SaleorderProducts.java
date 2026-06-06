@@ -47,4 +47,15 @@ public class SaleorderProducts extends BaseEntity{
 		this.quality = quality;
 	}
 
+	@Column(name = "color", length = 255, nullable = true)
+	private String color;
+
+	public String getColor() {
+		return color;
+	}
+
+	public void setColor(String color) {
+		this.color = color;
+	}
+
 }
