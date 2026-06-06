@@ -34,12 +34,15 @@ public class AdminApiController {
     private final TokenService tokenService;
     private final PasswordEncoder passwordEncoder;
     private final UserRoleService userRoleService;
+    private final AreaRepository areaRepository;
+    private final S3Service s3Service;
 
     public AdminApiController(ProductService productService, CategoriesService categoriesService,
                               SaleorderService saleorderService, SaleorderProductsService saleorderProductsService,
                               ContactService contactService, SubcribeService subcribeService,
                               UserService userService, RoleService roleService, TokenService tokenService,
-                              PasswordEncoder passwordEncoder, UserRoleService userRoleService) {
+                              PasswordEncoder passwordEncoder, UserRoleService userRoleService,
+                              AreaRepository areaRepository, S3Service s3Service) {
         this.productService = productService;
         this.categoriesService = categoriesService;
         this.saleorderService = saleorderService;
@@ -51,6 +54,8 @@ public class AdminApiController {
         this.tokenService = tokenService;
         this.passwordEncoder = passwordEncoder;
         this.userRoleService = userRoleService;
+        this.areaRepository = areaRepository;
+        this.s3Service = s3Service;
     }
 
     // --- PRODUCTS ---
@@ -226,6 +231,7 @@ public class AdminApiController {
         String email = (String) body.get("email");
         String phone = (String) body.get("phone");
         String address = (String) body.get("address");
+        String avatar = (String) body.get("avatar");
         List<Integer> roleIds = (List<Integer>) body.get("roleIds");
 
         if (username == null || username.trim().length() < 8) {
@@ -262,6 +268,7 @@ public class AdminApiController {
         user.setEmail(email.trim());
         user.setPhone(phone);
         user.setAddress(address);
+        user.setAvatar(avatar);
         user.setStatus(true);
         user.setCreatedDate(new java.util.Date());
 
@@ -301,6 +308,7 @@ public class AdminApiController {
         String email = (String) body.get("email");
         String phone = (String) body.get("phone");
         String address = (String) body.get("address");
+        String avatar = (String) body.get("avatar");
         List<Integer> roleIds = (List<Integer>) body.get("roleIds");
 
         if (username == null || username.trim().length() < 8) {
@@ -334,6 +342,7 @@ public class AdminApiController {
         user.setEmail(email.trim());
         user.setPhone(phone);
         user.setAddress(address);
+        user.setAvatar(avatar);
         user.setUpdatedDate(new java.util.Date());
 
         // Update password if provided
@@ -437,5 +446,75 @@ public class AdminApiController {
         result.put("code", 200);
         result.put("message", "Đã xóa nhóm quyền thành công!");
         return ResponseEntity.ok(result);
+    }
+
+    // --- AREAS ---
+    @GetMapping("/provinces")
+    public ResponseEntity<List<Area>> getProvinces() {
+        return ResponseEntity.ok(areaRepository.findByParentId(0));
+    }
+
+    @GetMapping("/wards")
+    public ResponseEntity<List<Area>> getWards(@RequestParam("provinceId") Integer provinceId) {
+        return ResponseEntity.ok(areaRepository.findByParentId(provinceId));
+    }
+
+    @PutMapping("/users/{id}/status")
+    @Transactional
+    public ResponseEntity<Map<String, Object>> updateUserStatus(
+            @PathVariable("id") int id,
+            @RequestBody Map<String, Object> body) {
+        Map<String, Object> response = new HashMap<>();
+        User user = userService.getById(id);
+        if (user == null) {
+            response.put("code", 404);
+            response.put("message", "Không tìm thấy người dùng!");
+            return ResponseEntity.status(404).body(response);
+        }
+
+        Boolean status = (Boolean) body.get("status");
+        if (status == null) {
+            response.put("code", 400);
+            response.put("message", "Trạng thái không được để trống!");
+            return ResponseEntity.badRequest().body(response);
+        }
+
+        // Prevent disabling current logged in user
+        org.springframework.security.core.Authentication auth = org.springframework.security.core.context.SecurityContextHolder.getContext().getAuthentication();
+        if (auth != null && auth.getName().equals(user.getUsername()) && !status) {
+            response.put("code", 400);
+            response.put("message", "Bạn không thể tự tắt hiệu lực tài khoản của chính mình!");
+            return ResponseEntity.badRequest().body(response);
+        }
+
+        user.setStatus(status);
+        user.setUpdatedDate(new java.util.Date());
+        userService.saveOrUpdate(user);
+
+        response.put("code", 200);
+        response.put("message", "Cập nhật trạng thái người dùng thành công!");
+        return ResponseEntity.ok(response);
+    }
+
+    @PostMapping("/users/upload-avatar")
+    public ResponseEntity<Map<String, Object>> uploadAvatar(@RequestParam("file") MultipartFile file) {
+        Map<String, Object> response = new HashMap<>();
+        try {
+            if (file == null || file.isEmpty()) {
+                response.put("code", 400);
+                response.put("message", "Tệp tin không được để trống!");
+                return ResponseEntity.badRequest().body(response);
+            }
+            String url = s3Service.uploadFile(file, "user-avatars");
+            response.put("code", 200);
+            response.put("url", url);
+            response.put("message", "Tải ảnh đại diện lên thành công!");
+            return ResponseEntity.ok(response);
+        } catch (Exception e) {
+            e.printStackTrace();
+            response.put("code", 500);
+            response.put("message", "Lỗi hệ thống khi tải ảnh lên S3/MinIO: " + e.getMessage());
+            return ResponseEntity.status(500).body(response);
+        }
     }
 }

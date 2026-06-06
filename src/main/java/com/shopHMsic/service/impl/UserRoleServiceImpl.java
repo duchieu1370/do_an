@@ -91,8 +91,32 @@ public class UserRoleServiceImpl implements UserRoleService {
 
         MapSqlParameterSource mapInput = new MapSqlParameterSource();
 
-        if (dto.getUserName() != null) {
+        if (StringUtils.isNotBlank(dto.getUserName())) {
             stringBuilder.append(" AND a.USERNAME like '%").append(dto.getUserName()).append("%' ");
+        }
+        if (StringUtils.isNotBlank(dto.getProvince())) {
+            stringBuilder.append(" AND UPPER(a.ADDRESS) LIKE UPPER('%").append(dto.getProvince()).append("%') ");
+        }
+        if (StringUtils.isNotBlank(dto.getWard())) {
+            stringBuilder.append(" AND UPPER(a.ADDRESS) LIKE UPPER('%").append(dto.getWard()).append("%') ");
+        }
+
+        // Fetch total elements
+        StringBuilder countQuery = new StringBuilder();
+        countQuery.append(" SELECT COUNT(*) FROM tbl_users a WHERE 1 = 1 ");
+        if (StringUtils.isNotBlank(dto.getUserName())) {
+            countQuery.append(" AND a.USERNAME like '%").append(dto.getUserName()).append("%' ");
+        }
+        if (StringUtils.isNotBlank(dto.getProvince())) {
+            countQuery.append(" AND UPPER(a.ADDRESS) LIKE UPPER('%").append(dto.getProvince()).append("%') ");
+        }
+        if (StringUtils.isNotBlank(dto.getWard())) {
+            countQuery.append(" AND UPPER(a.ADDRESS) LIKE UPPER('%").append(dto.getWard()).append("%') ");
+        }
+
+        Long totalElements = namedParameterJdbcTemplate.queryForObject(countQuery.toString(), mapInput, Long.class);
+        if (totalElements == null) {
+            totalElements = 0L;
         }
 
         stringBuilder.append("order by created_date desc OFFSET :page_ ROWS FETCH NEXT :size_ ROWS ONLY ");
@@ -101,7 +125,6 @@ public class UserRoleServiceImpl implements UserRoleService {
 
         List<User> resultList = namedParameterJdbcTemplate.query(stringBuilder.toString(), mapInput, BeanPropertyRowMapper.newInstance(User.class));
         if (CollectionUtils.isNotEmpty(resultList)) {
-            Long totalElements = (long) resultList.size();
             return new PageImpl<>(resultList, pageable, totalElements);
         } else {
             return new PageImpl<>(new ArrayList<>(), pageable, 0);

@@ -32,6 +32,9 @@ public class User extends BaseEntity implements UserDetails {
     @Column(name = "phone", length = 10)
     private String phone;
 
+    @Column(name = "avatar", length = 500)
+    private String avatar;
+
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "users")
     private Set<Role> roles = new HashSet<Role>();
 
@@ -102,8 +105,7 @@ public class User extends BaseEntity implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        // TODO Auto-generated method stub
-        return true;
+        return getStatus() != null ? getStatus() : false;
     }
 
 }

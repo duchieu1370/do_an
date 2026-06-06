@@ -56,7 +56,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                         Token token = tokenOpt.get();
                         boolean isDbValid = !token.getRevoked() && token.getExpiryDate().after(new Date());
                         
-                        if (isDbValid) {
+                        if (isDbValid && userDetails.isEnabled()) {
                             UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
                                     userDetails,
                                     null,

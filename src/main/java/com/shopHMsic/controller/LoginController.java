@@ -86,6 +86,13 @@ public class LoginController extends BaseController {
             }
             User user = users.get(0);
 
+            // Block inactive user
+            if (user.getStatus() != null && !user.getStatus()) {
+                response.put("code", 401);
+                response.put("message", "Tài khoản của bạn đã bị khóa/tắt hiệu lực!");
+                return ResponseEntity.status(401).body(response);
+            }
+
             // Decrypt RSA password
             String decryptedPassword;
             try {

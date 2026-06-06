@@ -22,3 +22,11 @@ spring:
 idp:
   private-key: privateKey.rsa
   public-key: publicKey.rsa
+
+s3:
+  endpoint: http://localhost:9000
+  bucket: msic-avatars
+  region: us-east-1
+  access-key: minioadmin
+  secret-key: minioadmin
+  public-url: http://localhost:9000/msic-avatars

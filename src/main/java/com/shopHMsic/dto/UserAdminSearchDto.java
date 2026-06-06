@@ -11,4 +11,6 @@ import lombok.Setter;
 @NoArgsConstructor
 public class UserAdminSearchDto extends BaseSearchModel {
     private String userName;
+    private String province;
+    private String ward;
 }
