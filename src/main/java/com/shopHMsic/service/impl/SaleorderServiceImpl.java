@@ -1,12 +1,13 @@
 package com.shopHMsic.service.impl;
 
 import com.shopHMsic.dto.OrderSearchModel;
-import com.shopHMsic.service.PagerData;
 import com.shopHMsic.entities.Saleorder;
 import com.shopHMsic.entities.SaleorderProducts;
 import com.shopHMsic.exception.EntityValidationException;
 import com.shopHMsic.repository.OrderRepository;
 import com.shopHMsic.service.SaleorderService;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -17,9 +18,6 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.PersistenceContext;
-import jakarta.persistence.Query;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -61,10 +59,10 @@ public class SaleorderServiceImpl implements SaleorderService {
             for (Saleorder order : list) {
                 try {
                     List<SaleorderProducts> products = entityManager.createQuery(
-                        "SELECT op FROM SaleorderProducts op WHERE op.saleOrder.id = :orderId", 
-                        SaleorderProducts.class)
-                        .setParameter("orderId", order.getId())
-                        .getResultList();
+                                    "SELECT op FROM SaleorderProducts op WHERE op.saleOrder.id = :orderId",
+                                    SaleorderProducts.class)
+                            .setParameter("orderId", order.getId())
+                            .getResultList();
                     order.setSaleOrderProducts(new java.util.HashSet<>(products));
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -90,11 +88,7 @@ public class SaleorderServiceImpl implements SaleorderService {
         }
         order.setOrderStatus(orderStatus);
         order.setReason(reason);
-        if (orderStatus == 5 || orderStatus == 6) {
-            order.setStatus(false);
-        } else {
-            order.setStatus(true);
-        }
+        order.setStatus(orderStatus);
         order.setUpdatedDate(new java.util.Date());
         orderRepository.save(order);
     }
@@ -120,31 +114,6 @@ public class SaleorderServiceImpl implements SaleorderService {
             order.setUpdatedDate(new java.util.Date());
             return entityManager.merge(order);
         }
-    }
-
-    @Override
-    public PagerData<Saleorder> search(OrderSearchModel searchModel) {
-        String sql = "SELECT * FROM tbl_saleorder p WHERE 1=1";
-        if (searchModel != null && org.springframework.util.StringUtils.hasText(searchModel.keyword)) {
-            sql += " and (p.customer_name like '%" + searchModel.keyword + "%'" + " or p.customer_email like '%"
-                    + searchModel.keyword + "%'" + " or p.customer_phone like '%" + searchModel.keyword + "%'"
-                    + " or p.customer_address like '%" + searchModel.keyword + "%')";
-        }
-        PagerData<Saleorder> result = new PagerData<>();
-        int page = searchModel == null ? 0 : (searchModel.getPage() == null ? 0 : searchModel.getPage());
-        try {
-            Query query = entityManager.createNativeQuery(sql, Saleorder.class);
-            if (page > 0) {
-                result.setCurrentPage(page);
-                result.setTotalItems(query.getResultList().size());
-                query.setFirstResult((page - 1) * 20);
-                query.setMaxResults(20);
-            }
-            result.setData(query.getResultList());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return result;
     }
 
 }

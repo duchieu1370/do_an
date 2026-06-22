@@ -1,3 +1,4 @@
+com\shopHMsic\controller\InternalOrderController.class
 com\shopHMsic\entities\ProductRating.class
 com\shopHMsic\service\impl\CategoriesServiceImpl.class
 com\shopHMsic\config\MessageTemplate.class
@@ -35,7 +36,6 @@ com\shopHMsic\controller\api\AdminUserApiController.class
 com\shopHMsic\controller\api\PublicApiController.class
 com\shopHMsic\entities\Subcribe.class
 com\shopHMsic\entities\Area.class
-com\shopHMsic\controller\LoginController.class
 com\shopHMsic\config\DataInitializer.class
 com\shopHMsic\controller\api\AdminCategoryApiController.class
 com\shopHMsic\components\Utilities.class
@@ -71,6 +71,7 @@ com\shopHMsic\dto\CartItem.class
 com\shopHMsic\exception\PartialUpdateException.class
 com\shopHMsic\ultilities\MapperUtil.class
 com\shopHMsic\dto\UserSearchModel.class
+com\shopHMsic\controller\AdminRevenueController.class
 com\shopHMsic\controller\api\AdminOrderApiController.class
 com\shopHMsic\dto\Contact.class
 com\shopHMsic\dto\SubcribeSearchModel.class

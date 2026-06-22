@@ -236,6 +236,8 @@ public class CartApiController {
         jsonResult.put("code", 200);
         jsonResult.put("message", "Đặt hàng thành công!");
         jsonResult.put("orderCode", saleOrder.getCode());
+        jsonResult.put("orderId", saleOrder.getId());
+        jsonResult.put("total", saleOrder.getTotal());
 
         return ResponseEntity.ok(jsonResult);
     }

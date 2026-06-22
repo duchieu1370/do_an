@@ -17,6 +17,4 @@ public interface SaleorderService {
     // Compatibility methods for existing controllers
     Saleorder saveOrUpdate(Saleorder order);
     
-    PagerData<Saleorder> search(OrderSearchModel searchModel);
-
 }
