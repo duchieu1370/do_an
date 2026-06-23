@@ -26,9 +26,9 @@ spring:
       format_sql: true
   datasource:
     driver-class-name: oracle.jdbc.driver.OracleDriver
-    url: jdbc:oracle:thin:@//localhost:1522/XEPDB1
-    username: MSIC
-    password: MSIC
+    url: jdbc:oracle:thin:@hmsic_tp?TNS_ADMIN=src/main/resources/wallet
+    username: ADMIN
+    password: Nhiteahihi@123
 
 idp:
   private-key: privateKey.rsa
