@@ -5,6 +5,7 @@ COPY pom.xml .
 COPY src ./src
 RUN mvn clean package -DskipTests
 
+RUN find target -name "*.jar" ! -name "*plain*" -exec mv {} target/app.jar \;
 # Bước 2: Tạo môi trường chạy Java siêu nhẹ
 FROM eclipse-temurin:17-jre-alpine
 WORKDIR /app
