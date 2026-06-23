@@ -61,6 +61,7 @@ com\shopHMsic\repository\ProductRepository.class
 com\shopHMsic\dto\ProductSearchDataModel.class
 com\shopHMsic\exception\ExceptionDTOResponse.class
 com\shopHMsic\dto\GetResponseDTO$GetResponseDTOBuilder.class
+com\shopHMsic\ultilities\TestDbConnection.class
 com\shopHMsic\dto\BaseResponse$BaseResponseBuilder.class
 com\shopHMsic\service\ContactService.class
 com\shopHMsic\service\ProductService.class
@@ -88,6 +89,7 @@ com\shopHMsic\service\PagerData.class
 com\shopHMsic\dto\ContactSearchModel.class
 com\shopHMsic\ultilities\Log.class
 com\shopHMsic\service\impl\SaleorderServiceImpl.class
+com\shopHMsic\repository\ProductImageRepository.class
 com\shopHMsic\service\UserService.class
 com\shopHMsic\service\impl\EmailServiceImpl.class
 com\shopHMsic\dto\Home.class
